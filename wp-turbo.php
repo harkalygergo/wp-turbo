@@ -9,3 +9,5 @@ Author: harkalygergo
 Author URI: https://www.harkalygergo.hu
 License: GPL3
 */
+
+include_once 'src/App/App.php';
