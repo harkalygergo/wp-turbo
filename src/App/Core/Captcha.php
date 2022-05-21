@@ -4,6 +4,8 @@ namespace App\Core;
 
 class Captcha
 {
+    private ?int $captchaKey1 = null;
+	private ?int $captchaKey2 = null;
 
     public function __construct()
     {
@@ -20,13 +22,13 @@ class Captcha
 
     public function action_login_form()
     {
-        $this->captcha_key1 = rand(1, 10);
-        $this->captcha_key2 = rand(1, 10);
+        $this->captchaKey1 = rand(1, 10);
+        $this->captchaKey2 = rand(1, 10);
         ?>
         <p>
             <label for="user_captcha">Captcha</label>
-            <input type="text" name="user_captcha" id="user_captcha" class="input" placeholder="<?php echo $this->captcha_key1.'+'.$this->captcha_key2.'=?';?>" required>
-            <input type="hidden" name="captcha_result" value="<?php echo $this->captcha_key1+$this->captcha_key2; ?>" required>
+            <input type="text" name="user_captcha" id="user_captcha" class="input" placeholder="<?php echo $this->captchaKey1.'+'.$this->captchaKey2.'=?';?>" required>
+            <input type="hidden" name="captcha_result" value="<?php echo $this->captchaKey1+$this->captchaKey2; ?>" required>
         </p>
     <?php }
 
