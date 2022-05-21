@@ -24,6 +24,14 @@ define('WP_CONTENT_URL', 'http' . (isset($_SERVER['HTTPS']) ? 's://' : '://') . 
 Add these lines to `.htaccess` file
 
 ```
+# protect wp-login.php
+<Files wp-login.php>
+	AuthType Basic
+	AuthName "admin + admin"
+	AuthUserFile [PATH]/.htpasswd
+	Require valid-user
+</Files>
+
 <Files admin-ajax.php>
     Order allow,deny
     Allow from all
@@ -36,16 +44,11 @@ deny from all
 <files ~ ".(xml|css|jpe?g|png|gif|js)$">
     allow from all
 </files>
-
-AuthName "admin + 1234"
-AuthType Basic
-AuthUserFile .htpasswd
-Require valid-user
 ```
 
 Add these lines to `.htpasswd` file
 
 ```
 # admin + 1234
-admin:$apr1$XdwSCQFU$NJclZS7Og0VzuDOF8nPla0';
+admin:$apr1$upnl829c$E9mKGBbblTEDNeXH9SiBb/';
 ```
