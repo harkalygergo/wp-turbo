@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Core\Dashboard;
 use App\Core\Security;
 
 // prevent direct access
@@ -15,6 +16,9 @@ class App
     {
         include_once 'Core/Security.php';
         new Security();
+
+        include_once 'Core/Dashboard.php';
+        (new Dashboard())->init();
     }
 }
 new App();
