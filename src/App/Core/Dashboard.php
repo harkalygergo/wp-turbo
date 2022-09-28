@@ -24,12 +24,50 @@ class Dashboard
 
     private function initVariables(): void
     {
-        $this->options = get_option( $this->menuSlug );
+        //$this->options = get_option( $this->menuSlug );
+        $this->options = get_option( $this->optionName );
     }
 
     private function initFrontend(): void
     {
+        if (!is_admin()) {
 
+            if (isset($this->options['enableSearchBySku']) && $this->options['enableSearchBySku'] === "true") {
+                add_filter( 'posts_search', [$this, 'searchBySku'], 999, 2 );
+            }
+        }
+    }
+
+    public function searchBySku( $search, &$query_vars )
+    {
+        global $wpdb;
+        if(isset($query_vars->query['s']) && !empty($query_vars->query['s'])) {
+            $posts = get_posts([
+                'posts_per_page'  => -1,
+                'post_type'       => 'product',
+                'meta_query' => [
+                    [
+                        'key' => '_sku',
+                        'value' => $query_vars->query['s'],
+                        'compare' => 'LIKE'
+                    ]
+                ]
+            ]);
+
+            if(empty($posts)) return $search;
+
+            $get_post_ids = [];
+
+            foreach($posts as $post){
+                $get_post_ids[] = $post->ID;
+            }
+
+            if(sizeof( $get_post_ids ) > 0 ) {
+                $search = str_replace( 'AND (((', "AND ((({$wpdb->posts}.ID IN (" . implode( ',', $get_post_ids ) . ")) OR (", $search);
+            }
+        }
+
+        return $search;
     }
 
     private function initBackend(): void
@@ -190,13 +228,13 @@ class Dashboard
             <!-- Here are our tabs -->
             <nav class="nav-tab-wrapper">
                 <a href="?page=<?php echo $this->menuSlug; ?>" class="nav-tab <?php if($tab===null):?>nav-tab-active<?php endif; ?>"><?php echo $this->menuTitle; ?></a>
-                <a href="?page=<?php echo $this->menuSlug; ?>&tab=settings" class="nav-tab <?php if($tab==='settings'):?>nav-tab-active<?php endif; ?>">Settings</a>
+                <a href="?page=<?php echo $this->menuSlug; ?>&tab=documentation" class="nav-tab <?php if($tab==='settings'):?>nav-tab-active<?php endif; ?>">Documentation</a>
             </nav>
 
             <div class="tab-content">
                 <?php switch($tab) :
-                    case 'settings':
-                        echo $this->getSettingsHtml();
+                    case 'documentation':
+                        echo 'Dokumentáció hamarosan...';
                         break;
                     default:
                         // Set class property
@@ -219,34 +257,5 @@ class Dashboard
             </div>
         </div>
         <?php
-    }
-
-    private function getSettingsHtml(): string
-    {
-        $html = '';
-        $html .= '<form method="post" action="options.php">';
-        $html .= '<table>';
-        $html .= '<tbody>';
-
-        $options = [
-            'enableSearchBySku' => ['false', 'true'],
-        ];
-
-        foreach ($options as $optionKey => $optionValue) {
-            $input = sprintf('<select name="%s" id="%s">', $optionKey, $optionKey);
-            foreach($optionValue as $option) {
-                $input .= sprintf('<option value="%s">%s</option>', $option, $option);
-            }
-            $input .= '</select>';
-
-            $html .= sprintf('<tr><th>%s</th><td>%s</td></tr>', $optionKey, $input);
-        }
-
-        $html .= '</tbody>';
-        $html .= '</table>';
-        $html .= get_submit_button();
-        $html .= '</form>';
-
-        return $html;
     }
 }
