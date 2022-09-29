@@ -38,7 +38,7 @@ class Dashboard
         }
     }
 
-    public function searchBySku( $search, &$query_vars )
+    public function searchBySku( $search, $query_vars )
     {
         global $wpdb;
         if(isset($query_vars->query['s']) && !empty($query_vars->query['s'])) {

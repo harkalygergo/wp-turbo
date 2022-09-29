@@ -24,7 +24,7 @@ class Security
     // remove query strings from URLs || https://kinsta.com/knowledgebase/remove-query-string-from-url/
     public function filter_script_loader_src_style_loader_src($src)
     {
-        if (! is_admin()) {
+        if (! is_admin() && gettype($src)==="string") {
             $src_explode = explode('?ver=', $src);
             $parts_explode = explode('.', $src_explode ['0']);
             if(end($parts_explode)==='css' || end($parts_explode)==='js')
