@@ -58,8 +58,12 @@ class Dashboard
 
             $get_post_ids = [];
 
-            foreach($posts as $post){
-                $get_post_ids[] = $post->ID;
+            foreach($posts as $post) {
+                if ($post->post_parent!==0) {
+                    $get_post_ids[] = $post->post_parent;
+                } else {
+                    $get_post_ids[] = $post->ID;
+                }
             }
 
             if(sizeof( $get_post_ids ) > 0 ) {
