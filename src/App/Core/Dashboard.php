@@ -44,7 +44,7 @@ class Dashboard
         if(isset($query_vars->query['s']) && !empty($query_vars->query['s'])) {
             $posts = get_posts([
                 'posts_per_page'  => -1,
-                'post_type'       => 'product',
+                'post_type'       => ['product', 'product_variation'],
                 'meta_query' => [
                     [
                         'key' => '_sku',
