@@ -1,6 +1,6 @@
 <?php declare( strict_types=1 );
 
-namespace App\Core;
+namespace WPTurbo\App\Core;
 
 class Security
 {
@@ -18,8 +18,9 @@ class Security
 
         // redirects ?author= URLs to homepage to avoid getting author names
         add_action('template_redirect', array(&$this, 'action_template_redirect'));
-    }
 
+        //parent::__construct();
+    }
 
     // remove query strings from URLs || https://kinsta.com/knowledgebase/remove-query-string-from-url/
     public function filter_script_loader_src_style_loader_src($src)
