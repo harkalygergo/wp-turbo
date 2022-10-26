@@ -270,13 +270,13 @@ class Dashboard
             <!-- Here are our tabs -->
             <nav class="nav-tab-wrapper">
                 <a href="?page=<?php echo $this->menuSlug; ?>" class="nav-tab <?php if($tab===null):?>nav-tab-active<?php endif; ?>"><?php echo $this->menuTitle; ?></a>
-                <a href="?page=<?php echo $this->menuSlug; ?>&tab=documentation" class="nav-tab <?php if($tab==='settings'):?>nav-tab-active<?php endif; ?>">Documentation</a>
+                <a href="?page=<?php echo $this->menuSlug; ?>&tab=documentation" class="nav-tab <?php if($tab==='documentation'):?>nav-tab-active<?php endif; ?>">Documentation</a>
             </nav>
 
             <div class="tab-content">
                 <?php switch($tab) :
                     case 'documentation':
-                        echo 'Dokumentáció hamarosan...';
+                        include_once (__DIR__.'/Documentation.php');
                         break;
                     default:
                         // Set class property
