@@ -4,6 +4,11 @@ Universal plugin to make WordPress better, faster, safer.
 
 ---
 
+## Options
+
+- enable SKU-based search for WooCommerce
+- exclude featured products from products loop
+
 ## Usage
 
 ### Security
