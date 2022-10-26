@@ -35,6 +35,34 @@ class Dashboard
             if (isset($this->options['enableSearchBySku']) && $this->options['enableSearchBySku'] === "true") {
                 add_filter( 'posts_search', [$this, 'searchBySku'], 999, 2 );
             }
+
+            if (isset($this->options['excludeFeaturedProductsFromLoop']) && $this->options['excludeFeaturedProductsFromLoop'] === "true") {
+                add_action( 'woocommerce_product_query', [$this, 'excludeFeaturedProductsFromLoop']);
+            }
+        }
+    }
+
+    public function excludeFeaturedProductsFromLoop($query)
+    {
+        if ( ! is_admin() && $query->is_main_query() ) {
+            // Not a query for an admin page.
+            // It's the main query for a front end page of your site.
+
+            if ( is_product_category() ) {
+                // It's the main query for a product category archive.
+                $tax_query = (array) $query->get( 'tax_query' );
+
+                // Tax query to exclude featured product
+                $tax_query[] = array(
+                    'taxonomy' => 'product_visibility',
+                    'field'    => 'name',
+                    'terms'    => 'featured',
+                    'operator' => 'NOT IN',
+                );
+
+                $query->set( 'tax_query', $tax_query );
+            }
+
         }
     }
 
@@ -113,7 +141,17 @@ class Dashboard
             'SKU search is enabled?',
             array( $this, 'title_callback' ),
             'my-setting-admin',
-            'wp-turbo-settings-woocommerce'
+            'wp-turbo-settings-woocommerce',
+            ['name' => 'enableSearchBySku']
+        );
+
+        add_settings_field(
+            'excludeFeaturedProductsFromLoop',
+            'Exclude featured products from products loop?',
+            array( $this, 'title_callback' ),
+            'my-setting-admin',
+            'wp-turbo-settings-woocommerce',
+            ['name' => 'excludeFeaturedProductsFromLoop']
         );
     }
 
@@ -135,7 +173,7 @@ class Dashboard
      */
     public function sanitize( $input )
     {
-        $new_input = array();
+        $new_input = $input;
         if( isset( $input['id_number'] ) )
             $new_input['id_number'] = absint( $input['id_number'] );
 
@@ -155,12 +193,12 @@ class Dashboard
     /**
      * Get the settings option array and print one of its values
      */
-    public function title_callback()
+    public function title_callback($args)
     {
         $input = '';
 
         $options = [
-            'enableSearchBySku' => ['false', 'true'],
+            $args['name'] => ['false', 'true'],
         ];
 
         foreach ($options as $optionKey => $optionValue) {
