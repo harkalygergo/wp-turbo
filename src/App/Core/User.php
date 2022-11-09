@@ -6,6 +6,7 @@ class User
 {
     private string $lastLoginMetaKey = '_last_login';
     private string $lastLoginText = 'Last login';
+    private string $lastLoginDateFormat = 'Y-m-d H:i:s';
 
     public function __construct()
     {
@@ -40,7 +41,12 @@ class User
     public function filter_manage_users_custom_column( $column_output, $column_name, $user_id )
     {
         if ( $this->lastLoginMetaKey == $column_name ) {
-            return date('Y-m-d H:i:s', (int)get_user_meta($user_id, $this->lastLoginMetaKey, true));
+            $userLastLoginTimestamp = (int)get_user_meta($user_id, $this->lastLoginMetaKey, true);
+
+            return sprintf("%s (%s)",
+                date($this->lastLoginDateFormat, $userLastLoginTimestamp),
+                human_time_diff($userLastLoginTimestamp, time())
+            );
         }
 
         return $column_output;
