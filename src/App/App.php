@@ -6,6 +6,7 @@ use App\Core\Dashboard;
 use App\Core\Debug;
 use App\Core\Log;
 use App\Core\Security;
+use App\Core\User;
 
 // prevent direct access
 if (! defined( 'ABSPATH' ) ) {
@@ -26,6 +27,9 @@ class App
 
         include_once 'Core/Security.php';
         new Security();
+
+        include_once 'Core/User.php';
+        (new User())->setHooks();
 
         include_once 'Core/Dashboard.php';
         (new Dashboard())->init();
