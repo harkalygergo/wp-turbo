@@ -272,6 +272,7 @@ class Dashboard
                 <a href="?page=<?php echo $this->menuSlug; ?>" class="nav-tab <?php if($tab===null):?>nav-tab-active<?php endif; ?>"><?php echo $this->menuTitle; ?></a>
                 <a href="?page=<?php echo $this->menuSlug; ?>&tab=documentation" class="nav-tab <?php if($tab==='documentation'):?>nav-tab-active<?php endif; ?>">Documentation</a>
                 <a href="?page=<?php echo $this->menuSlug; ?>&tab=log" class="nav-tab <?php if($tab==='log'):?>nav-tab-active<?php endif; ?>">Log</a>
+                <a href="?page=<?php echo $this->menuSlug; ?>&tab=phpinfo" class="nav-tab <?php if($tab==='phpinfo'):?>nav-tab-active<?php endif; ?>">PHPinfo</a>
             </nav>
 
             <div class="tab-content">
@@ -281,6 +282,12 @@ class Dashboard
                         break;
                     case 'log':
                         include_once (__DIR__.'/../../../log/upgrader_process_complete.csv');
+                        break;
+                    case 'phpinfo':
+                        echo '<style>table, th, td { border: 1px solid;}</style>';
+                        ob_start();
+                        phpinfo();
+                        echo explode('</body>', explode('<body>', trim (ob_get_clean ()))['1'])['0'];
                         break;
                     default:
                         // Set class property

@@ -6,6 +6,7 @@ Universal plugin to make WordPress better, faster, safer. Feel free to use.
 
 ## Options
 
+- `phpinfo()` result in dashboard
 - logging plugin updates
 - add user last login function and column for Users dashboard page
 - enable SKU-based search for WooCommerce
