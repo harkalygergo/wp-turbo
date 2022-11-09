@@ -6,6 +6,7 @@ Universal plugin to make WordPress better, faster, safer. Feel free to use.
 
 ## Options
 
+- logging plugin updates
 - enable SKU-based search for WooCommerce
 - exclude featured products from products loop
 - simple `dump($variable, $isExit)` function for debug
