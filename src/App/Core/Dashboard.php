@@ -129,10 +129,11 @@ class Dashboard
         <div class="dashboard-widget-finish-setup" data-current-step="4" data-total-steps="6">
             <div class="description">
                 <div>
-                    <strong>Harkály Gergő</strong>
-                    <br><small>PHP web developer</small>
+                    <strong>Harkály Gergő <small>web developer</small></strong>
+                    <!--br><small>PHP web developer</small-->
                     <br>+36305512337
-                    <br><a href="https://www.harkalygergo.hu" target="_blank">www.harkalygergo.hu</a>
+                    <br><a href="mailto:wpturbo@harkalygergo.hu" target="_blank">wpturbo@harkalygergo.hu</a>
+                    <br><a href="https://www.harkalygergo.hu" target="_blank">https://www.harkalygergo.hu</a>
                     <div>
                         <a target="_blank" href="https://www.patreon.com/harkalygergo" class="button button-secondary button-small">
                             <span class="dashicons dashicons-coffee"></span> buy me a coffee
