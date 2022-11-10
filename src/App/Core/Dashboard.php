@@ -107,7 +107,43 @@ class Dashboard
         if (is_admin()) {
             add_action( 'admin_menu', [$this, 'addAdminMenu']);
             add_action( 'admin_init', [$this, 'adminPageInit'] );
+            add_action( 'wp_dashboard_setup', [$this, 'addBuyMeCoffeeWidget'] );
         }
+    }
+
+    public function addBuyMeCoffeeWidget()
+    {
+        wp_add_dashboard_widget(
+            'wp-turbo-coffee-widget',
+            'WP Turbo developer',
+            [$this, 'addBuyMeCoffeeWidgetContent'],
+            null,
+            null,
+            'column3'
+        );
+    }
+
+    public function addBuyMeCoffeeWidgetContent()
+    {
+        ?>
+        <div class="dashboard-widget-finish-setup" data-current-step="4" data-total-steps="6">
+            <div class="description">
+                <div>
+                    <strong>Harkály Gergő</strong>
+                    <br><small>PHP web developer</small>
+                    <br>+36305512337
+                    <br><a href="https://www.harkalygergo.hu" target="_blank">www.harkalygergo.hu</a>
+                    <div>
+                        <a target="_blank" href="https://www.patreon.com/harkalygergo" class="button button-secondary button-small">
+                            <span class="dashicons dashicons-coffee"></span> buy me a coffee
+                        </a>
+                    </div>
+                </div>
+                <img src="https://www.harkalygergo.hu/media/uploads/hosts/www-harkalygergo.hu/622fb3a307872099393996.jpg" alt="Harkály Gergő">
+            </div>
+            <div class="clear"></div>
+        </div>
+        <?php
     }
 
     public function addAdminMenu()
