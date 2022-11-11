@@ -1,7 +1,7 @@
 <?php
 global $config;
 $config = [
-    'contactName'           => 'Harkály Béla',
+    'contactName'           => 'Harkály Gergő',
     'contactPosition'       => 'web developer',
     'contactPhone'          => '+36305512337',
     'contactEmail'          => 'wpturbo@harkalygergo.hu',
