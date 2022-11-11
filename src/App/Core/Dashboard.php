@@ -117,7 +117,7 @@ class Dashboard
     {
         wp_add_dashboard_widget(
             'wp-turbo-coffee-widget',
-            'WP Turbo contact',
+            'WP Turbo supportc',
             [$this, 'addBuyMeCoffeeWidgetContent'],
             null,
             null,
