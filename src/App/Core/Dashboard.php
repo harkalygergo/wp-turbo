@@ -4,6 +4,7 @@ namespace App\Core;
 
 class Dashboard
 {
+    private array $config = [];
     private string $menuTitle = 'WP Turbo';
     private string $menuSlug = 'wp-turbo';
     private array|bool $options = false;
@@ -15,8 +16,9 @@ class Dashboard
         // do nothing
     }
 
-    public function init(): void
+    public function init(array $config=[]): void
     {
+        $this->config = $config;
         $this->initVariables();
         $this->initFrontend();
         $this->initBackend();
@@ -126,16 +128,29 @@ class Dashboard
     public function addBuyMeCoffeeWidgetContent()
     {
         ?>
-        <div class="dashboard-widget-finish-setup" data-current-step="4" data-total-steps="6">
+        <style>
+            #wpTurboBuyMeCoffee {
+                --img-width: 120px;
+            }
+            #wpTurboBuyMeCoffee div.description div {
+                margin-top: 5px;
+                width: calc(100% - var(--img-width));
+            }
+            #wpTurboBuyMeCoffee img {
+                width: var(--img-width);
+                height: auto;
+            }
+        </style>
+        <div id="wpTurboBuyMeCoffee" class="dashboard-widget-finish-setup" data-current-step="4" data-total-steps="6">
             <div class="description">
                 <div>
-                    <strong>Harkály Gergő <small>web developer</small></strong>
+                    <strong><?php echo $this->config['contactName']; ?> <small><?php echo $this->config['contactPosition']; ?></small></strong>
                     <!--br><small>PHP web developer</small-->
-                    <br>+36305512337
-                    <br><a href="mailto:wpturbo@harkalygergo.hu" target="_blank">wpturbo@harkalygergo.hu</a>
-                    <br><a href="https://www.harkalygergo.hu" target="_blank">https://www.harkalygergo.hu</a>
+                    <br><?php echo $this->config['contactPhone']; ?>
+                    <br><a href="mailto:<?php echo $this->config['contactEmail']; ?>" target="_blank"><?php echo $this->config['contactEmail']; ?></a>
+                    <br><a href="<?php echo $this->config['contactWebsite']; ?>" target="_blank"><?php echo $this->config['contactWebsite']; ?></a>
                     <div>
-                        <a target="_blank" href="https://www.patreon.com/harkalygergo" class="button button-secondary button-small">
+                        <a target="_blank" href="<?php echo $this->config['contactSupportLink']; ?>" class="button button-secondary button-small">
                             <span class="dashicons dashicons-coffee"></span> buy me a coffee
                         </a>
                     </div>

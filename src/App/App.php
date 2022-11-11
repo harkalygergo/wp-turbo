@@ -17,7 +17,7 @@ class App
 {
     public Debug $debug;
 
-    public function __construct()
+    public function __construct(array $config)
     {
         include_once 'Core/Debug.php';
         $this->debug = new Debug();
@@ -32,6 +32,6 @@ class App
         (new User())->setHooks();
 
         include_once 'Core/Dashboard.php';
-        (new Dashboard())->init();
+        (new Dashboard())->init($config);
     }
 }
