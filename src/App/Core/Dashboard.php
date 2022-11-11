@@ -133,10 +133,12 @@ class Dashboard
                 --img-width: 120px;
             }
             #wpTurboBuyMeCoffee div.description div {
+                float: left;
                 margin-top: 5px;
                 width: calc(100% - var(--img-width));
             }
             #wpTurboBuyMeCoffee img {
+                float: right;
                 width: var(--img-width);
                 height: auto;
             }
