@@ -146,16 +146,21 @@ class Dashboard
         <div id="wpTurboBuyMeCoffee" class="dashboard-widget-finish-setup" data-current-step="4" data-total-steps="6">
             <div class="description">
                 <div>
-                    <strong><?php echo $this->config['contactName']; ?> <small><?php echo $this->config['contactPosition']; ?></small></strong>
+                    <strong>
+                        <?php echo $this->config['contactName']; ?>
+                        <br><small><?php echo $this->config['contactPosition']; ?></small>
+                    </strong>
                     <!--br><small>PHP web developer</small-->
                     <br><?php echo $this->config['contactPhone']; ?>
                     <br><a href="mailto:<?php echo $this->config['contactEmail']; ?>" target="_blank"><?php echo $this->config['contactEmail']; ?></a>
                     <br><a href="<?php echo $this->config['contactWebsite']; ?>" target="_blank"><?php echo $this->config['contactWebsite']; ?></a>
-                    <div>
-                        <a target="_blank" href="<?php echo $this->config['contactSupportLink']; ?>" class="button button-secondary button-small">
-                            <span class="dashicons dashicons-coffee"></span> buy me a coffee
-                        </a>
-                    </div>
+                    <?php if($this->config['contactSupportLink']!=='') : ?>
+                        <div>
+                            <a target="_blank" href="<?php echo $this->config['contactSupportLink']; ?>" class="button button-secondary button-small">
+                                <span class="dashicons dashicons-coffee"></span> buy me a coffee
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <img src="https://www.harkalygergo.hu/media/uploads/hosts/www-harkalygergo.hu/622fb3a307872099393996.jpg" alt="Harkály Gergő">
             </div>
