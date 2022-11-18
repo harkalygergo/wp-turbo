@@ -107,6 +107,7 @@ class Dashboard
     private function initBackend(): void
     {
         if (is_admin()) {
+            add_filter( 'pre_option_link_manager_enabled', '__return_true' );
             add_action( 'admin_menu', [$this, 'addAdminMenu']);
             add_action( 'admin_init', [$this, 'adminPageInit'] );
             add_action( 'wp_dashboard_setup', [$this, 'addBuyMeCoffeeWidget'] );
@@ -141,6 +142,7 @@ class Dashboard
                 float: right;
                 width: var(--img-width);
                 height: auto;
+                filter: grayscale(0.5);
             }
         </style>
         <div id="wpTurboBuyMeCoffee" class="dashboard-widget-finish-setup" data-current-step="4" data-total-steps="6">

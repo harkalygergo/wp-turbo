@@ -11,9 +11,14 @@ class Debug
 
     public function dump(mixed $variable, bool $exit=false)
     {
-        echo '<pre>';
+        if (is_bool($variable)) {
+            $variable = $variable ? 1 : 0;
+        }
+
+        echo "<pre>\n";
+        print_r("type: " . gettype($variable)."\n");
         print_r($variable);
-        echo '</pre>';
+        echo "\n</pre>";
 
         if ($exit)
             exit;
