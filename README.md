@@ -6,6 +6,7 @@ Universal plugin to make WordPress better, faster, safer. Feel free to use.
 
 ## Advantages
 
+- change default e-mail sender name and address to `blogname` name and `admin_email`
 - `phpinfo()` result in dashboard
 - logging plugin updates
 - add user last login function and column for Users dashboard page

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Core\Dashboard;
 use App\Core\Debug;
+use App\Core\Email;
 use App\Core\Log;
 use App\Core\Security;
 use App\Core\User;
@@ -33,5 +34,8 @@ class App
 
         include_once 'Core/Dashboard.php';
         (new Dashboard())->init($config);
+
+        include_once 'Core/Email.php';
+        (new Email())->init();
     }
 }
