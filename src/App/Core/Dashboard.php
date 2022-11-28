@@ -322,7 +322,6 @@ class Dashboard
 
         // get the active tab from the $_GET param
         $tab = $_GET['tab'] ?? null;
-
         ?>
         <!-- Our admin page content should all be inside .wrap -->
         <div class="wrap">
@@ -330,14 +329,33 @@ class Dashboard
             <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
             <!-- Here are our tabs -->
             <nav class="nav-tab-wrapper">
-                <a href="?page=<?php echo $this->menuSlug; ?>" class="nav-tab <?php if($tab===null):?>nav-tab-active<?php endif; ?>"><?php echo $this->menuTitle; ?></a>
-                <a href="?page=<?php echo $this->menuSlug; ?>&tab=documentation" class="nav-tab <?php if($tab==='documentation'):?>nav-tab-active<?php endif; ?>">Documentation</a>
-                <a href="?page=<?php echo $this->menuSlug; ?>&tab=log" class="nav-tab <?php if($tab==='log'):?>nav-tab-active<?php endif; ?>">Log</a>
-                <a href="?page=<?php echo $this->menuSlug; ?>&tab=phpinfo" class="nav-tab <?php if($tab==='phpinfo'):?>nav-tab-active<?php endif; ?>">PHPinfo</a>
+                <?php
+                $wpTurboMenus = [
+                    null            => $this->menuTitle,
+                    'documentation' => 'Documentation',
+                    'log'           => 'Log',
+                    'readme'        => 'ReadMe',
+                    'phpinfo'       => 'PhpInfo',
+                ];
+                foreach($wpTurboMenus as $wpTurboMenuKey => $wpTurboMenuValue) {
+                    echo sprintf('<a href="?page=%s&tab=%s" class="nav-tab %s">%s</a>',
+                     $this->menuSlug,
+                     (string) $wpTurboMenuKey,
+                     ($tab===$wpTurboMenuKey) ? 'nav-tab-active' : '',
+                    $wpTurboMenuValue
+                    );
+                }
+                ?>
             </nav>
 
             <div class="tab-content">
                 <?php switch($tab) :
+                    case 'readme':
+                        echo '<script type="module" src="https://md-block.verou.me/md-block.js"></script>';
+                        echo '<md-block>';
+                        include_once __DIR__.'/../../../README.md';
+                        echo '</md-block>';
+                        break;
                     case 'documentation':
                         include_once (__DIR__.'/Documentation.php');
                         break;

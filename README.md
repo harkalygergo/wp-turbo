@@ -62,16 +62,13 @@ Add these lines to `.htaccess` file
 	AuthUserFile [PATH]/.htpasswd
 	Require valid-user
 </Files>
-
 <Files admin-ajax.php>
     Order allow,deny
     Allow from all
     Satisfy any
 </Files>
-
 order deny,allow
 deny from all
-
 <files ~ ".(xml|css|jpe?g|png|gif|js)$">
     allow from all
 </files>
