@@ -24,6 +24,8 @@ $config = [];
 include_once 'src/App/App.php';
 include_once 'config.php';
 
+global $WPTurbo;
+
 $WPTurbo = new App($config);
 
 function dump(mixed $variable, bool $exit=false)

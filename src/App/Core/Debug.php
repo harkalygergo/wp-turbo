@@ -16,11 +16,22 @@ class Debug
         }
 
         echo "<pre>\n";
+
+        //print_r($this->getVariableName($variable));
         print_r("type: " . gettype($variable)."\n");
         print_r($variable);
         echo "\n</pre>";
 
         if ($exit)
             exit;
+    }
+
+    public function getVariableName( $v ) {
+        $trace = debug_backtrace();
+        $vLine = file( __FILE__ );
+        $fLine = $vLine[ $trace[0]['line'] - 1 ];
+        preg_match( "#\\$(\w+)#", $fLine, $match );
+
+        return $match;
     }
 }
