@@ -20,6 +20,8 @@ class App
 
     public function __construct(array $config)
     {
+        $this->options = get_option( 'wp-turbo-options' );
+
         include_once 'Core/Debug.php';
         $this->debug = new Debug();
 
