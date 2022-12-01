@@ -20,6 +20,7 @@ class Debug
         //print_r($this->getVariableName($variable));
         print_r("type: " . gettype($variable)."\n");
         print_r($variable);
+        var_dump($variable);
         echo "\n</pre>";
 
         if ($exit)

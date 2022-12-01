@@ -191,6 +191,40 @@ class Dashboard
         register_setting($this->optionGroupName, $this->optionName, [$this, 'sanitize']);
 
         add_settings_section(
+            'wp-turbo-settings-contact', // ID
+            'Contact', // Title
+            array( $this, 'print_section_info' ), // Callback
+            'my-setting-admin' // Page
+        );
+
+        add_settings_field(
+            'phone',
+            'Phone',
+            [$this, 'generateFormInput'],
+            'my-setting-admin',
+            'wp-turbo-settings-contact',
+            ['type'=>'tel', 'name' => 'phone']
+        );
+
+        add_settings_field(
+            'facebookURL',
+            'Facebook URL',
+            [$this, 'generateFormInput'],
+            'my-setting-admin',
+            'wp-turbo-settings-contact',
+            ['type'=>'url', 'name' => 'facebookURL']
+        );
+
+        add_settings_field(
+            'instagramURL',
+            'Instagram URL',
+            [$this, 'generateFormInput'],
+            'my-setting-admin',
+            'wp-turbo-settings-contact',
+            ['type'=>'url', 'name' => 'instagramURL']
+        );
+
+        add_settings_section(
             'wp-turbo-settings-woocommerce', // ID
             'WooCommerce', // Title
             array( $this, 'print_section_info' ), // Callback
@@ -200,7 +234,7 @@ class Dashboard
         add_settings_field(
             'enableSearchBySku',
             'SKU search is enabled?',
-            array( $this, 'title_callback' ),
+            [$this, 'generateFormSelect'],
             'my-setting-admin',
             'wp-turbo-settings-woocommerce',
             ['name' => 'enableSearchBySku']
@@ -209,14 +243,25 @@ class Dashboard
         add_settings_field(
             'excludeFeaturedProductsFromLoop',
             'Exclude featured products from products loop?',
-            array( $this, 'title_callback' ),
+            [$this, 'generateFormSelect'],
             'my-setting-admin',
             'wp-turbo-settings-woocommerce',
             ['name' => 'excludeFeaturedProductsFromLoop']
         );
     }
 
+    public function generateFormInput($args)
+    {
+        $fieldValue = $this->options[$args['name']];
 
+        printf(
+            '<input type="%s" id="%s" name="%s" value="%s" />',
+            $args['type'],
+            $this->optionName.'['.$args['name'].']',
+            $this->optionName.'['.$args['name'].']',
+            isset( $fieldValue ) ? $fieldValue : ''
+        );
+    }
 
 
 
@@ -254,7 +299,7 @@ class Dashboard
     /**
      * Get the settings option array and print one of its values
      */
-    public function title_callback($args)
+    public function generateFormSelect($args)
     {
         $input = '';
 
