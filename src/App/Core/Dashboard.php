@@ -106,6 +106,7 @@ class Dashboard
 
     private function initBackend(): void
     {
+        add_action('login_head', [$this, 'action_login_head']);
         if (is_admin()) {
             add_filter( 'pre_option_link_manager_enabled', '__return_true' );
             add_action( 'admin_menu', [$this, 'addAdminMenu']);
@@ -113,6 +114,18 @@ class Dashboard
             add_action( 'wp_dashboard_setup', [$this, 'addBuyMeCoffeeWidget'] );
         }
     }
+
+    public function action_login_head()
+    {
+        // custom login
+        ?>
+        <style>
+            body.login { background-image:url("<?php echo $this->config['pluginURL']; ?>img/bg<?php echo date('m'); ?>.jpg"); -webkit-background-size: cover; background-size: cover; }
+            body.login h1 { display:none; }
+            body.login div#login form#loginform { border-radius:5px; }
+            body.login p#nav a, body.login p#backtoblog a { background-color:white; padding:5px; border-radius:5px; }
+        </style>
+    <?php }
 
     public function addBuyMeCoffeeWidget()
     {

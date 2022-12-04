@@ -1,6 +1,7 @@
 <?php
 global $config;
 $config = [
+    'pluginURL'             => plugin_dir_url(__FILE__),
     'contactName'           => 'Harkály Gergő',
     'contactPosition'       => 'web developer',
     'contactPhone'          => '+36305512337',
