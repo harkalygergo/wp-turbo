@@ -6,6 +6,7 @@ Universal plugin to make WordPress better, faster, safer. Feel free to use.
 
 ## Advantages
 
+- enable CSV mime type for uploading on dashboard
 - add phone number, Facebook and Instagram URL
 - add month-based image as background on login page
 - change default e-mail sender name and address to `blogname` name and `admin_email`

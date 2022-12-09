@@ -108,11 +108,22 @@ class Dashboard
     {
         add_action('login_head', [$this, 'action_login_head']);
         if (is_admin()) {
+            add_filter( 'mime_types', 'modifyUploadableMimeTypes' );
             add_filter( 'pre_option_link_manager_enabled', '__return_true' );
             add_action( 'admin_menu', [$this, 'addAdminMenu']);
             add_action( 'admin_init', [$this, 'adminPageInit'] );
             add_action( 'wp_dashboard_setup', [$this, 'addBuyMeCoffeeWidget'] );
         }
+    }
+
+    /*
+     * @link https://developer.wordpress.org/reference/hooks/mime_types/
+     */
+    public function modifyUploadableMimeTypes($mimeTypes): array
+    {
+        $mimeTypes['csv'] = 'text/csv';
+
+        return $mimeTypes;
     }
 
     public function action_login_head()
