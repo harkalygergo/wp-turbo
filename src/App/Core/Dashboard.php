@@ -108,7 +108,7 @@ class Dashboard
     {
         add_action('login_head', [$this, 'action_login_head']);
         if (is_admin()) {
-            add_filter( 'mime_types', 'modifyUploadableMimeTypes' );
+            add_filter( 'mime_types', [$this, 'modifyUploadMimeTypes'] );
             add_filter( 'pre_option_link_manager_enabled', '__return_true' );
             add_action( 'admin_menu', [$this, 'addAdminMenu']);
             add_action( 'admin_init', [$this, 'adminPageInit'] );
@@ -119,7 +119,7 @@ class Dashboard
     /*
      * @link https://developer.wordpress.org/reference/hooks/mime_types/
      */
-    public function modifyUploadableMimeTypes($mimeTypes): array
+    public function modifyUploadMimeTypes($mimeTypes): array
     {
         $mimeTypes['csv'] = 'text/csv';
 
