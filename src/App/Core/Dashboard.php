@@ -429,7 +429,9 @@ class Dashboard
                         include_once (__DIR__.'/Documentation.php');
                         break;
                     case 'log':
+                        echo '<pre>';
                         include_once (__DIR__.'/../../../log/upgrader_process_complete.csv');
+                        echo '</pre>';
                         break;
                     case 'phpinfo':
                         echo '<style>table, th, td { border: 1px solid;}</style>';
