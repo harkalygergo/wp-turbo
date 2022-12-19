@@ -16,10 +16,13 @@ class User
     public function setHooks()
     {
         add_action( 'wp_login', [$this, 'action_wp_login'], 10, 2 );
-        add_filter('manage_users_columns', [$this, 'filter_manage_users_columns']);
-        add_filter('manage_users_custom_column', [$this, 'filter_manage_users_custom_column'], 10, 3);
-        add_filter('manage_users_sortable_columns', [$this, 'filter_manage_users_sortable_columns'], 10, 1);
-        add_action( 'pre_get_users', [$this, 'action_pre_get_users'] );
+
+        if (is_admin()) {
+            add_filter('manage_users_columns', [$this, 'addRegistrationLastLoginColumns']);
+            add_filter('manage_users_custom_column', [$this, 'addRegistrationLastLoginColumnsResults'], 10, 3);
+            add_filter('manage_users_sortable_columns', [$this, 'filterRegistrationLastLoginColumnsResults'], 10, 1);
+            add_action( 'pre_get_users', [$this, 'action_pre_get_users'] );
+        }
     }
 
     /**
@@ -33,30 +36,41 @@ class User
         update_user_meta( $user->ID, $this->lastLoginMetaKey, time() );
     }
 
-    public function filter_manage_users_columns($columns) {
+    public function addRegistrationLastLoginColumns($columns) {
+        $columns['registration_date'] = __('Registered');
         $columns[$this->lastLoginMetaKey] = $this->lastLoginText;
+
         return $columns;
     }
 
-    public function filter_manage_users_custom_column( $column_output, $column_name, $user_id )
+    public function addRegistrationLastLoginColumnsResults( $column_output, $column_name, $user_id )
     {
-        if ( $this->lastLoginMetaKey == $column_name ) {
-            $userLastLoginTimestamp = (int)get_user_meta($user_id, $this->lastLoginMetaKey, true);
+        switch ($column_name) {
+            case 'registration_date' :
+            {
+                return get_the_author_meta( 'registered', $user_id );
+            }
+            case $this->lastLoginMetaKey:
+            {
+                $userLastLoginTimestamp = (int)get_user_meta($user_id, $this->lastLoginMetaKey, true);
 
-            return sprintf("%s (%s)",
-                date($this->lastLoginDateFormat, $userLastLoginTimestamp),
-                human_time_diff($userLastLoginTimestamp, time())
-            );
+                return sprintf("%s (%s)",
+                    date($this->lastLoginDateFormat, $userLastLoginTimestamp),
+                    human_time_diff($userLastLoginTimestamp, time())
+                );
+            }
+            default:
         }
 
         return $column_output;
     }
 
-    public function filter_manage_users_sortable_columns( $columns_to_sort ) {
-        // make the column sortable
-        $columns_to_sort[$this->lastLoginMetaKey] = $this->lastLoginMetaKey;
-
-        return $columns_to_sort;
+    public function filterRegistrationLastLoginColumnsResults( $columns )
+    {
+        return wp_parse_args([
+            'registration_date'     => 'registered',
+            $this->lastLoginMetaKey => $this->lastLoginMetaKey
+        ], $columns );
     }
 
     /**

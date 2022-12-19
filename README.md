@@ -12,6 +12,7 @@ Universal plugin to make WordPress better, faster, safer. Feel free to use.
 - change default e-mail sender name and address to `blogname` name and `admin_email`
 - `phpinfo()` result in dashboard
 - logging plugin updates
+- add user registration date column for Users dashboard page
 - add user last login function and column for Users dashboard page
 - enable SKU-based search for WooCommerce
 - exclude featured products from products loop
