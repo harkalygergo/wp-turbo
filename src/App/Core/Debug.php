@@ -16,10 +16,9 @@ class Debug
         }
 
         echo "<pre>\n";
-
-        //print_r($this->getVariableName($variable));
         print_r("type: " . gettype($variable)."\n");
         print_r($variable);
+        echo "\n";
         var_dump($variable);
         echo "\n</pre>";
 
