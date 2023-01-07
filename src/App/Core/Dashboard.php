@@ -109,7 +109,6 @@ class Dashboard
         add_action('login_head', [$this, 'action_login_head']);
         if (is_admin()) {
             add_filter( 'mime_types', [$this, 'modifyUploadMimeTypes'] );
-            add_filter( 'pre_option_link_manager_enabled', '__return_true' );
             add_action( 'admin_menu', [$this, 'addAdminMenu']);
             add_action( 'admin_init', [$this, 'adminPageInit'] );
             add_action( 'wp_dashboard_setup', [$this, 'addBuyMeCoffeeWidget'] );

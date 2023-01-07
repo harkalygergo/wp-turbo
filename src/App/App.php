@@ -22,6 +22,8 @@ class App
     {
         $this->options = get_option( 'wp-turbo-options' );
 
+        $this->init();
+
         include_once 'Core/Debug.php';
         $this->debug = new Debug();
 
@@ -39,5 +41,11 @@ class App
 
         include_once 'Core/Email.php';
         (new Email())->init();
+    }
+
+    public function init(): void
+    {
+        // enable Links Manager
+        add_filter( 'pre_option_link_manager_enabled', '__return_true' );
     }
 }
