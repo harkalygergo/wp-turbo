@@ -6,6 +6,7 @@ Universal plugin to make WordPress better, faster, safer. Feel free to use.
 
 ## Advantages
 
+- separate and modifiable files for custom style and script code
 - enable CSV mime type for uploading on dashboard
 - add phone number, Facebook and Instagram URL
 - add month-based image as background on login page
@@ -21,6 +22,13 @@ Universal plugin to make WordPress better, faster, safer. Feel free to use.
 ---
 
 ## Usage
+
+Run this code on server to prevent follow style and script changes:
+
+```
+git update-index --assume-unchanged local/style.css
+git update-index --assume-unchanged local/script.js
+```
 
 ### Multisite
 

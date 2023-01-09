@@ -15,7 +15,7 @@ class Frontend
     {
         if (!is_admin()) {
             $this->config = $config;
-            add_action('wp_enqueue_scripts', [$this, 'addStyle']);
+            add_action('wp_enqueue_scripts', [$this, 'addStyle'], 100);
         }
     }
 
