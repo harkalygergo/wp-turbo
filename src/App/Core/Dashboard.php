@@ -201,6 +201,8 @@ class Dashboard
 
         // add submenus
         add_submenu_page($this->menuSlug, 'WP blocks', 'WP ' . __('Blocks'), 'manage_options', 'edit.php?post_type=wp_block');
+        add_submenu_page($this->menuSlug, 'Editor: style.css', 'Editor: style.css', 'manage_options', (is_multisite()?'/network':'').'/plugin-editor.php?file=wp-turbo/local/style.css&plugin=wp-turbo/wp-turbo.php');
+        add_submenu_page($this->menuSlug, 'Editor: script.js', 'Editor: script.js', 'manage_options', (is_multisite()?'/network':'').'/plugin-editor.php?file=wp-turbo/local/script.js&plugin=wp-turbo/wp-turbo.php');
         add_submenu_page($this->menuSlug, 'WC product import', 'WC import', 'manage_options', 'edit.php?post_type=product&page=product_importer');
         add_submenu_page($this->menuSlug, 'WC product export', 'WC export', 'manage_options', 'edit.php?post_type=product&page=product_exporter');
         add_submenu_page($this->menuSlug, 'WP options', 'WP options', 'manage_options', 'options.php');
