@@ -429,7 +429,7 @@ class Dashboard
                             <p><input name="orderID" id="orderID" class="regular-text" type="number" placeholder="order ID" value="" required></p>
                             <p><textarea name='projectHashes' id='projectHashes' class='large-text' placeholder="projekt hash-ek egymás alá" style='height:100px;' required></textarea></p>
                             <p>
-                                <button name="actionButton" id="actionButton" value="update" class="button button-secondary">2. set projects customer</button>
+                                <!--button name="actionButton" id="actionButton" value="update" class="button button-secondary">2. set projects customer</button-->
                                 <button name="actionButton" id="actionButton" value="createbulkorder" class="button button-secondary">2. create new order</button>
                                 <button name="actionButton" id="actionButton" value="orderupdate" class="button button-secondary">3. set order to paid</button>
                                 <span class="button button-secondary" onclick="window.open('https://paperstories-eu-pbx2.getprintbox.com/pb-admin/order/?per-page=500&page=&o=-create_time', '_blank');">4. check is order changed to Rendered from Paid</span>
