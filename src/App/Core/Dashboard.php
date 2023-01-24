@@ -130,7 +130,7 @@ class Dashboard
         // custom login
         ?>
         <style>
-            body.login { background-image:url("<?php echo $this->config['pluginURL']; ?>img/bg<?php echo date('m'); ?>.jpg"); -webkit-background-size: cover; background-size: cover; }
+            body.login { background-image:url("<?php echo $this->config['pluginURL']; ?>src/img/bg<?php echo date('m'); ?>.jpg"); -webkit-background-size: cover; background-size: cover; }
             body.login h1 { display:none; }
             body.login div#login form#loginform { border-radius:5px; }
             body.login p#nav a, body.login p#backtoblog a { background-color:white; padding:5px; border-radius:5px; }
