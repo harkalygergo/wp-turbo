@@ -12,16 +12,34 @@ class WooCommerce
         // do nothing
     }
 
+
     public function init()
     {
-        $this->setVariables();
-        $this->setHooks();
+        if ($this->is_woocommerce_activated()) {
+            $this->setVariables();
+            $this->setHooks();
+        }
     }
 
     public function setVariables()
     {
         $this->productCategoryDescriptionKey = '_meta_description';
         $this->productCategoryKeywordsKey = '_meta_keywords';
+    }
+
+    /**
+     * Check if WooCommerce is activated
+     */
+    private function is_woocommerce_activated()
+    {
+        if ( ! function_exists( 'is_woocommerce_activated' ) ) {
+            function is_woocommerce_activated() {
+                if ( class_exists( 'woocommerce' ) )
+                    return true;
+                else
+                    return false;
+            }
+        }
     }
 
     public function setHooks()
