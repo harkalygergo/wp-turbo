@@ -4,11 +4,7 @@ namespace App\Plugin;
 
 class WooCommerce
 {
-    private ?string $productCategoryTitle = null;
-    private ?string $productCategoryTitleKey = null;
-    private ?string $productCategoryDescription = null;
     private ?string $productCategoryDescriptionKey = null;
-    private ?string $productCategoryKeywords = null;
     private ?string $productCategoryKeywordsKey = null;
 
     public function __construct()
@@ -24,7 +20,6 @@ class WooCommerce
 
     public function setVariables()
     {
-        $this->productCategoryTitleKey = '_meta_title';
         $this->productCategoryDescriptionKey = '_meta_description';
         $this->productCategoryKeywordsKey = '_meta_keywords';
     }
@@ -36,10 +31,10 @@ class WooCommerce
 
         add_action('create_product_cat', [$this, 'actionSaveCustomFields'], 10, 1);
         add_action('edited_product_cat', [$this, 'actionSaveCustomFields'], 10, 1);
-        add_action( 'wp_head', [$this, 'wcs_add_meta_keywords'], 2);
+        add_action( 'wp_head', [$this, 'addProductCategoryDescriptionAndKeywords'], 2);
     }
 
-    public function wcs_add_meta_keywords()
+    public function addProductCategoryDescriptionAndKeywords()
     {
         /** @var \WP_Term $currentCategory */
         $currentCategory = get_queried_object();
@@ -54,11 +49,6 @@ class WooCommerce
     public function addProductCategoryCustomFields(): void
     {
         ?>
-        <div class="form-field">
-            <label for="<?php echo $this->productCategoryTitleKey; ?>">Meta Title (wpt)</label>
-            <input type="text" name="<?php echo $this->productCategoryTitleKey; ?>" id="<?php echo $this->productCategoryTitleKey; ?>">
-            <p class="description"><?php _e('Enter a meta title, <= 60-70 character', 'wp-turbo'); ?></p>
-        </div>
         <div class="form-field">
             <label for="<?php echo $this->productCategoryDescriptionKey; ?>">Meta Description (wpt)</label>
             <input type="text" name="<?php echo $this->productCategoryDescriptionKey; ?>" id="<?php echo $this->productCategoryDescriptionKey; ?>">
@@ -79,17 +69,9 @@ class WooCommerce
         $term_id = $term->term_id;
 
         // retrieve the existing value(s) for this meta field.
-        $_meta_title = get_term_meta($term_id, $this->productCategoryTitleKey, true);
         $_meta_desc = get_term_meta($term_id, $this->productCategoryDescriptionKey, true);
         $_meta_keywords = get_term_meta($term_id, $this->productCategoryKeywordsKey, true);
         ?>
-        <tr class="form-field">
-            <th scope="row"><label for="<?php echo $this->productCategoryTitleKey; ?>">Meta Title (wpt)</label></th>
-            <td>
-                <input type="text" name="<?php echo $this->productCategoryTitleKey; ?>" id="<?php echo $this->productCategoryTitleKey; ?>" value="<?php echo esc_attr($_meta_title) ? esc_attr($_meta_title) : ''; ?>">
-                <p class="description"><?php _e('Enter a meta title, <= 60-70 character', 'wp-turbo'); ?></p>
-            </td>
-        </tr>
         <tr class="form-field">
             <th scope="row"><label for="<?php echo $this->productCategoryDescriptionKey; ?>">Meta Description (wpt)</label></th>
             <td>
@@ -110,7 +92,6 @@ class WooCommerce
     // Save extra taxonomy fields callback function.
     public function actionSaveCustomFields($term_id): void
     {
-        update_term_meta($term_id, $this->productCategoryTitleKey, filter_input(INPUT_POST, $this->productCategoryTitleKey));
         update_term_meta($term_id, $this->productCategoryDescriptionKey, filter_input(INPUT_POST, $this->productCategoryDescriptionKey));
         update_term_meta($term_id, $this->productCategoryKeywordsKey, filter_input(INPUT_POST, $this->productCategoryKeywordsKey));
     }
