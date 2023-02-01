@@ -9,6 +9,7 @@ use App\Core\Frontend;
 use App\Core\Log;
 use App\Core\Security;
 use App\Core\User;
+use App\Plugin\WooCommerce;
 
 // prevent direct access
 if (! defined( 'ABSPATH' ) ) {
@@ -45,6 +46,9 @@ class App
 
         include_once 'Core/Email.php';
         (new Email())->init();
+
+        include_once 'Plugin/WooCommerce.php';
+        (new WooCommerce())->init();
     }
 
     public function init(): void
