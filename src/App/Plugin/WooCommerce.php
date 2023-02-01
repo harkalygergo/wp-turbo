@@ -45,17 +45,17 @@ class WooCommerce
         <div class="form-field">
             <label for="<?php echo $this->productCategoryTitleKey; ?>">Meta Title</label>
             <input type="text" name="<?php echo $this->productCategoryTitleKey; ?>" id="<?php echo $this->productCategoryTitleKey; ?>">
-            <p class="description"><?php _e('Enter a meta title, <= 60 character', 'wp-turbo'); ?></p>
+            <p class="description"><?php _e('Enter a meta title, <= 60-70 character', 'wp-turbo'); ?></p>
         </div>
         <div class="form-field">
             <label for="<?php echo $this->productCategoryDescriptionKey; ?>">Meta Description</label>
             <textarea name="<?php echo $this->productCategoryDescriptionKey; ?>" id="<?php echo $this->productCategoryDescriptionKey; ?>"></textarea>
-            <p class="description"><?php _e('Enter a meta description, <= 160 character', 'wp-turbo'); ?></p>
+            <p class="description"><?php _e('Enter a meta description, <= 130-160 character', 'wp-turbo'); ?></p>
         </div>
         <div class="form-field">
             <label for="<?php echo $this->productCategoryKeywordsKey; ?>">Meta Keywords</label>
             <input type="text" name="<?php echo $this->productCategoryKeywordsKey; ?>" id="<?php echo $this->productCategoryKeywordsKey; ?>">
-            <p class="description"><?php _e('Enter a meta title, <= 60 character', 'wp-turbo'); ?></p>
+            <p class="description"><?php _e('Enter comma separated keywords', 'wp-turbo'); ?></p>
         </div>
         <?php
     }
@@ -75,14 +75,14 @@ class WooCommerce
             <th scope="row"><label for="<?php echo $this->productCategoryTitleKey; ?>">Meta Title</label></th>
             <td>
                 <input type="text" name="<?php echo $this->productCategoryTitleKey; ?>" id="<?php echo $this->productCategoryTitleKey; ?>" value="<?php echo esc_attr($_meta_title) ? esc_attr($_meta_title) : ''; ?>">
-                <p class="description"><?php _e('Enter a meta title, <= 60 character', 'wp-turbo'); ?></p>
+                <p class="description"><?php _e('Enter a meta title, <= 60-70 character', 'wp-turbo'); ?></p>
             </td>
         </tr>
         <tr class="form-field">
             <th scope="row"><label for="<?php echo $this->productCategoryDescriptionKey; ?>">Meta Description</label></th>
             <td>
                 <textarea name="<?php echo $this->productCategoryDescriptionKey; ?>" id="<?php echo $this->productCategoryDescriptionKey; ?>"><?php echo esc_attr($_meta_desc) ? esc_attr($_meta_desc) : ''; ?></textarea>
-                <p class="description"><?php _e('Enter a meta description', 'wp-turbo'); ?></p>
+                <p class="description"><?php _e('Enter a meta description, <= 130-160 character', 'wp-turbo'); ?></p>
             </td>
         </tr>
         <tr class="form-field">
