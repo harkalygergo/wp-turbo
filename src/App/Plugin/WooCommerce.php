@@ -36,6 +36,18 @@ class WooCommerce
 
         add_action('create_product_cat', [$this, 'actionSaveCustomFields'], 10, 1);
         add_action('edited_product_cat', [$this, 'actionSaveCustomFields'], 10, 1);
+        add_action( 'wp_head', [$this, 'wcs_add_meta_keywords'], 2);
+    }
+
+    public function wcs_add_meta_keywords()
+    {
+        /** @var \WP_Term $currentCategory */
+        $currentCategory = get_queried_object();
+
+        if (is_product_category()) {
+            echo '<meta name="description" content="'.get_term_meta($currentCategory->term_id, $this->productCategoryDescriptionKey, true).'" />'."\n";
+            echo '<meta name="keywords" content="'.get_term_meta($currentCategory->term_id, $this->productCategoryKeywordsKey, true).'" />'."\n";
+        }
     }
 
     //Product Cat Create page
@@ -43,17 +55,17 @@ class WooCommerce
     {
         ?>
         <div class="form-field">
-            <label for="<?php echo $this->productCategoryTitleKey; ?>">Meta Title</label>
+            <label for="<?php echo $this->productCategoryTitleKey; ?>">Meta Title (wpt)</label>
             <input type="text" name="<?php echo $this->productCategoryTitleKey; ?>" id="<?php echo $this->productCategoryTitleKey; ?>">
             <p class="description"><?php _e('Enter a meta title, <= 60-70 character', 'wp-turbo'); ?></p>
         </div>
         <div class="form-field">
-            <label for="<?php echo $this->productCategoryDescriptionKey; ?>">Meta Description</label>
-            <textarea name="<?php echo $this->productCategoryDescriptionKey; ?>" id="<?php echo $this->productCategoryDescriptionKey; ?>"></textarea>
+            <label for="<?php echo $this->productCategoryDescriptionKey; ?>">Meta Description (wpt)</label>
+            <input type="text" name="<?php echo $this->productCategoryDescriptionKey; ?>" id="<?php echo $this->productCategoryDescriptionKey; ?>">
             <p class="description"><?php _e('Enter a meta description, <= 130-160 character', 'wp-turbo'); ?></p>
         </div>
         <div class="form-field">
-            <label for="<?php echo $this->productCategoryKeywordsKey; ?>">Meta Keywords</label>
+            <label for="<?php echo $this->productCategoryKeywordsKey; ?>">Meta Keywords (wpt)</label>
             <input type="text" name="<?php echo $this->productCategoryKeywordsKey; ?>" id="<?php echo $this->productCategoryKeywordsKey; ?>">
             <p class="description"><?php _e('Enter comma separated keywords', 'wp-turbo'); ?></p>
         </div>
@@ -72,21 +84,21 @@ class WooCommerce
         $_meta_keywords = get_term_meta($term_id, $this->productCategoryKeywordsKey, true);
         ?>
         <tr class="form-field">
-            <th scope="row"><label for="<?php echo $this->productCategoryTitleKey; ?>">Meta Title</label></th>
+            <th scope="row"><label for="<?php echo $this->productCategoryTitleKey; ?>">Meta Title (wpt)</label></th>
             <td>
                 <input type="text" name="<?php echo $this->productCategoryTitleKey; ?>" id="<?php echo $this->productCategoryTitleKey; ?>" value="<?php echo esc_attr($_meta_title) ? esc_attr($_meta_title) : ''; ?>">
                 <p class="description"><?php _e('Enter a meta title, <= 60-70 character', 'wp-turbo'); ?></p>
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row"><label for="<?php echo $this->productCategoryDescriptionKey; ?>">Meta Description</label></th>
+            <th scope="row"><label for="<?php echo $this->productCategoryDescriptionKey; ?>">Meta Description (wpt)</label></th>
             <td>
-                <textarea name="<?php echo $this->productCategoryDescriptionKey; ?>" id="<?php echo $this->productCategoryDescriptionKey; ?>"><?php echo esc_attr($_meta_desc) ? esc_attr($_meta_desc) : ''; ?></textarea>
+                <input type="text" name="<?php echo $this->productCategoryDescriptionKey; ?>" id="<?php echo $this->productCategoryDescriptionKey; ?>" value="<?php echo esc_attr($_meta_desc) ? esc_attr($_meta_desc) : ''; ?>">
                 <p class="description"><?php _e('Enter a meta description, <= 130-160 character', 'wp-turbo'); ?></p>
             </td>
         </tr>
         <tr class="form-field">
-            <th scope="row"><label for="<?php echo $this->productCategoryKeywordsKey; ?>">Meta Keywords</label></th>
+            <th scope="row"><label for="<?php echo $this->productCategoryKeywordsKey; ?>">Meta Keywords (wpt)</label></th>
             <td>
                 <input type="text" name="<?php echo $this->productCategoryKeywordsKey; ?>" id="<?php echo $this->productCategoryKeywordsKey; ?>" value="<?php echo esc_attr($_meta_keywords) ? esc_attr($_meta_keywords) : ''; ?>">
                 <p class="description"><?php _e('Enter comma separated keywords', 'wp-turbo'); ?></p>

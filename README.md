@@ -18,6 +18,7 @@ Universal plugin to make WordPress better, faster, safer. Feel free to use.
 - enable SKU-based search for WooCommerce
 - exclude featured products from products loop
 - simple `dump($variable, $isExit)` function for debug
+- title, description and keywords meta for WooCommerce product categories
 
 ---
 
