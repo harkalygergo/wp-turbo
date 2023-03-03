@@ -424,7 +424,7 @@ class Dashboard
                     case 'printbox':
                     { ?>
                         <p><a class="button button-primary" href="https://paperstories-eu-pbx2.getprintbox.com/pb-admin/order/?per-page=500&page=&o=-create_time" target="_blank">1. Check highest order ID</a></p>
-                        <form method="POST" action="/wp-json/printbox/actions/3/91ab845d-4c0c-4126-b76a-4fe20e28a09e/bulk/" target="_blank">
+                        <form method="POST" action="/wp-json/printbox/actions/5/91ab845d-4c0c-4126-b76a-4fe20e28a09e/bulk/" target="_blank">
                             <input type="hidden" name="bulk" id="bulk">
                             <p><input name="orderID" id="orderID" class="regular-text" type="number" placeholder="order ID" value="" required></p>
                             <p><textarea name='projectHashes' id='projectHashes' class='large-text' placeholder="projekt hash-ek egymás alá" style='height:100px;' required></textarea></p>
