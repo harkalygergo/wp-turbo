@@ -50,6 +50,26 @@ else
     define( 'WP_DEBUG', false );
 ```
 
+### Speed optimization
+
+#### WP Cron
+
+WordPress "cron job" is not a real cron-job, it runs on every page load. Official info from documentation: https://developer.wordpress.org/plugins/cron/
+
+> WP-Cron works by checking, on every page load, a list of scheduled tasks to see what needs to be run. Any tasks due to run will be called during that page load.
+
+So to make faster the loading, disable this function by adding this line into `wp-config.php`:
+
+```php
+define('DISABLE_WP_CRON', true);
+```
+
+And to make cron-jobs manually, add this line into server's cron by changing `domain.tld` part to yours:
+
+```shell
+wget -q -O - "https://[domain.tld]/wp-cron.php?doing_wp_cron" >/dev/null 2>&1
+```
+
 ### Security
 
 Add these lines to `wp-config.php` file
