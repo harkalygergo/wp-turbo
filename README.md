@@ -49,8 +49,7 @@ if (in_array($_SERVER['REMOTE_ADDR'], ['128.0.0.1', '1.2.3.4'])) {
     define( 'WP_DEBUG', true );
     // mysql queries are tracked and displayed
     define( 'SAVEQUERIES', true );
-}
-else {
+} else {
     define( 'WP_DEBUG', false );
 }
 ```
