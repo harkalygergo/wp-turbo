@@ -45,7 +45,10 @@ Change `define( 'WP_DEBUG', false );` line with below solution for better debugg
 
 ```php
 if (in_array($_SERVER['REMOTE_ADDR'], ['128.0.0.1', '1.2.3.4']))
+    // tracks PHP Warnings and Notices to make them easier to find
     define( 'WP_DEBUG', true );
+    // mysql queries are tracked and displayed
+    define( 'SAVEQUERIES', true );
 else
     define( 'WP_DEBUG', false );
 ```

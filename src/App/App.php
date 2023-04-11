@@ -19,6 +19,7 @@ if (! defined( 'ABSPATH' ) ) {
 class App
 {
     public Debug $debug;
+    public mixed $options;
 
     public function __construct(array $config)
     {
