@@ -35,7 +35,7 @@ class App
         (new Log())->setHooks();
 
         include_once 'Core/CssMinifier.php';
-        (new CssMinifier())->setHooks();
+        (new CssMinifier())->init();
 
         include_once 'Core/Security.php';
         new Security();

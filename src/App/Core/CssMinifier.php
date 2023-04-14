@@ -9,28 +9,28 @@ class CssMinifier
         // do nothing
     }
 
-    public function init()
+    public function init(): void
     {
         $this->setHooks();
     }
 
-    public function setHooks()
+    public function setHooks(): void
     {
-        add_action( 'rest_api_init', [$this, 'registerRestRoutes']);
+        add_action('wp_ajax_edit-theme-plugin-file', [$this, 'callMinifierFunction'], 0);
     }
 
-    public function registerRestRoutes()
+    public function callMinifierFunction(): void
     {
-        register_rest_route( 'minifier', 'css', [
-            'methods' => 'GET',
-            'callback' => [$this, 'cssMinifier'],
-            'permission_callback' => '__return_true',
-        ]);
+        if (!empty($_POST['plugin']) && $_POST['plugin'] === 'wp-turbo/wp-turbo.php') {
+            if ($_POST['file']==='wp-turbo/local/style.css') {
+                $this->cssMinifier($_POST['newcontent']);
+            }
+        }
     }
 
-    public function cssMinifier()
+    private function cssMinifier($newContent): void
     {
-        $minified = file_get_contents(__DIR__.'/../../../local/style.css');
+        $minified = $newContent;
 
         $minified = str_replace("\n", "", $minified);
         $minified = str_replace("  ", " ", $minified);
@@ -45,6 +45,5 @@ class CssMinifier
 
         //write the entire string
         file_put_contents(__DIR__.'/../../../local/style.min.css', $minified);
-        exit;
     }
 }
