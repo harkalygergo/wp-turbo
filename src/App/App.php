@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Core\CssMinifier;
 use App\Core\Dashboard;
 use App\Core\Debug;
 use App\Core\Email;
@@ -32,6 +33,9 @@ class App
 
         include_once 'Core/Log.php';
         (new Log())->setHooks();
+
+        include_once 'Core/CssMinifier.php';
+        (new CssMinifier())->setHooks();
 
         include_once 'Core/Security.php';
         new Security();

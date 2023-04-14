@@ -28,6 +28,7 @@ Run this code on server to prevent follow style and script changes:
 
 ```
 git update-index --assume-unchanged local/style.css
+git update-index --assume-unchanged local/style.min.css
 git update-index --assume-unchanged local/script.js
 ```
 
