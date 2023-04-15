@@ -7,6 +7,7 @@ Universal plugin to make WordPress better, faster, safer. Feel free to use.
 ## Advantages
 
 - separate and modifiable files for custom style and script code
+- custom style CSS minifier for faster loading
 - enable CSV mime type for uploading on dashboard
 - add phone number, Facebook and Instagram URL
 - add month-based image as background on login page
