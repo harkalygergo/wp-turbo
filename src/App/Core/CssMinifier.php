@@ -30,7 +30,7 @@ class CssMinifier
 
     private function cssMinifier($newContent): void
     {
-        $minified = $newContent;
+        $minified = stripslashes($newContent);
 
         $minified = str_replace("\n", "", $minified);
         $minified = str_replace("  ", " ", $minified);
