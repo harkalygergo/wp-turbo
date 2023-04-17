@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\App;
+
 class CssMinifier
 {
     public function __construct()
@@ -45,5 +47,14 @@ class CssMinifier
 
         //write the entire string
         file_put_contents(__DIR__.'/../../../local/style.min.css', $minified);
+
+        $wpTurboOptions = get_option('wp-turbo-options');
+        $wpTurboOptions['cssMinifier'] = time();
+        $this->updateOptions($wpTurboOptions);
+    }
+
+    private function updateOptions($wpTurboOptions): void
+    {
+        update_option('wp-turbo-options', $wpTurboOptions);
     }
 }

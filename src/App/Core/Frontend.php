@@ -21,7 +21,9 @@ class Frontend
 
     public function addStyleAndScript(): void
     {
-        wp_enqueue_style( 'wp-turbo-style', $this->config['pluginURL'].'local/style.min.css');
+        $wpOptions = get_option( 'wp-turbo-options' );
+
+        wp_enqueue_style( 'wp-turbo-style', $this->config['pluginURL'].'local/style.min.css', [], $wpOptions['cssMinifier'], 'all' );
         wp_enqueue_script( 'wp-turbo-script', $this->config['pluginURL'].'local/script.js', [], false, true);
     }
 }

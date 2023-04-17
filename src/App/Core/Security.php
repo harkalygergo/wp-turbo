@@ -54,8 +54,8 @@ class Security
         add_filter('the_generator', '__return_empty_string');
 
         // remove query strings from URLs || https://kinsta.com/knowledgebase/remove-query-string-from-url/
-        add_filter('script_loader_src', array(&$this, 'filter_script_loader_src_style_loader_src'), 15, 1);
-        add_filter('style_loader_src', array(&$this, 'filter_script_loader_src_style_loader_src'), 15, 1);
+        //add_filter('script_loader_src', array(&$this, 'filter_script_loader_src_style_loader_src'), 15, 1);
+        //add_filter('style_loader_src', array(&$this, 'filter_script_loader_src_style_loader_src'), 15, 1);
     }
 
     private function filter_pre_comment_content($text)
