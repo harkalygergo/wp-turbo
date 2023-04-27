@@ -60,5 +60,7 @@ class App
     {
         // enable Links Manager
         add_filter( 'pre_option_link_manager_enabled', '__return_true' );
+        // enable page excerpt
+        add_post_type_support( 'page', 'excerpt' );
     }
 }
