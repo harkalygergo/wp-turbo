@@ -6,6 +6,7 @@ Universal plugin to make WordPress better, faster, safer. Feel free to use.
 
 ## Advantages
 
+- SEO elements added, like meta description
 - separate and modifiable files for custom style and script code
 - custom style CSS minifier for faster loading
 - enable page excerpt

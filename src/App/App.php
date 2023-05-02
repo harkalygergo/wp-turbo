@@ -9,6 +9,7 @@ use App\Core\Email;
 use App\Core\Frontend;
 use App\Core\Log;
 use App\Core\Security;
+use App\Core\SEO;
 use App\Core\User;
 use App\Plugin\WooCommerce;
 
@@ -45,6 +46,9 @@ class App
 
         include_once 'Core/Dashboard.php';
         (new Dashboard())->init($config);
+
+        include_once 'Core/SEO.php';
+        (new SEO())->init();
 
         include_once 'Core/Frontend.php';
         (new Frontend())->init($config);
