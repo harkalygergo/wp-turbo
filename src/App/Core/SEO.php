@@ -26,12 +26,9 @@ class SEO
 
     public function addMetaDescription()
     {
-        global $post;
-
-        $postExcerpt = $post->post_excerpt;
-
-        if ( ! empty( $postExcerpt ) ) {
-            $metaDescription = $postExcerpt;
+        if (is_product() || is_page() || is_single()) {
+            global $post;
+            $metaDescription = $post->post_excerpt;
         } else {
             $metaDescription = get_bloginfo( 'description' );
         }
