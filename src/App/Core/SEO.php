@@ -22,11 +22,12 @@ class SEO
     public function setFrontendHooks()
     {
         add_action( 'wp_head', [$this, 'addMetaDescription'] );
+        add_action( 'wp_head', [$this, 'addSchemaPostMetaToHead'] );
     }
 
     public function addMetaDescription()
     {
-        if (is_product() || is_page() || is_single()) {
+        if (is_singular(['post', 'page', 'product'])) {
             global $post;
             $metaDescription = $post->post_excerpt;
         } else {
@@ -34,5 +35,15 @@ class SEO
         }
 
         echo "\n".'<meta name="description" content="' . esc_attr( $metaDescription ) . '" />' . "\n";
+    }
+
+    public function addSchemaPostMetaToHead()
+    {
+        if (is_singular(['post', 'page', 'product'])) {
+            $schema = get_post_meta(get_the_ID(), 'schema', true);
+            if(!empty($schema)) {
+                echo $schema;
+            }
+        }
     }
 }
