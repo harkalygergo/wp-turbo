@@ -1,6 +1,6 @@
 # WP Turbo
 
-Universal plugin to make WordPress better, faster, safer. Feel free to use.
+Multisite compatible plugin to make WordPress better, faster, safer. Universally. Feel free to use.
 
 ---
 
@@ -48,7 +48,7 @@ define('WP_ALLOW_MULTISITE', true);
 Change `define( 'WP_DEBUG', false );` line with below solution for better debugging to be able to set `WP_DEBUG` constants to `true` separately from any user. Change IP list in array with yours (for example with home address' IP and workplace's IP).
 
 ```php
-if (in_array($_SERVER['REMOTE_ADDR'], ['128.0.0.1', '1.2.3.4'])) {
+if (in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '1.2.3.4'])) {
     // tracks PHP Warnings and Notices to make them easier to find
     define( 'WP_DEBUG', true );
     // mysql queries are tracked and displayed
