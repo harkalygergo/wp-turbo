@@ -21,8 +21,9 @@ class SEO
 
     public function setFrontendHooks()
     {
-        add_action( 'wp_head', [$this, 'addMetaDescription'] );
-        add_action( 'wp_head', [$this, 'addSchemaPostMetaToHead'] );
+        add_action( 'wp_head', [$this, 'addMetaTitle'], 5 );
+        add_action( 'wp_head', [$this, 'addMetaDescription'], 5 );
+        add_action( 'wp_head', [$this, 'addSchemaPostMetaToHead'], 5 );
     }
 
     public function addMetaDescription()
@@ -44,6 +45,26 @@ class SEO
             if(!empty($schema)) {
                 echo $schema;
             }
+        }
+    }
+
+    // function to add meta title into wp_head with product categories name list
+    public function addMetaTitle()
+    {
+        if (is_singular(['product'])) {
+            global $post;
+            $metaTitle = $post->post_title;
+            // get product categories
+            $terms = get_the_terms( $post->ID, 'product_cat' );
+            if ( $terms && ! is_wp_error( $terms ) ) :
+                $cat_names = array();
+                foreach ( $terms as $term ) {
+                    $cat_names[] = $term->name;
+                }
+                $metaTitle .= ' '.strtolower(implode(' & ', $cat_names));
+            endif;
+
+            echo "\n".'<meta name="title" content="' . esc_attr( $metaTitle ) . '" />' . "\n";
         }
     }
 }
