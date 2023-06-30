@@ -2,13 +2,16 @@
 
 namespace WPTurbo\App\Core;
 
-class Log
+use WPTurbo\App\App;
+
+class Log extends App
 {
     private string $upgrader_process_complete_path = __DIR__.'/../../../log/upgrader_process_complete.csv';
 
     public function __construct()
     {
         // do nothing
+        //parent::__construct();
     }
 
     public function setHooks()
@@ -22,14 +25,15 @@ class Log
         global $wpdb;
 
         if (!is_null($wpdb->queries)) {
-            $file = fopen(trailingslashit(WP_CONTENT_DIR) . 'uploads/wp-turbo/sqlLogs.sql', 'a');
+            $file = fopen(trailingslashit(WP_CONTENT_DIR) . 'uploads/wp-turbo/'.$this->getSiteBaseUrl().'-sqlLogs.sql', 'a');
 
-            fwrite($file, "\n\n------ NEW REQUEST [" . date("F j, Y, g:i:s a") . "] ------\n\n");
+            fwrite($file, "\n\n------ NEW REQUEST [" . date("F j, Y, g:i:s a") . "] ------\n");
 
             foreach ($wpdb->queries as $q) {
-                fwrite($file, $q[0] . " - ($q[1] s)" . "\n\n");
+                fwrite($file, $q[0] . " - ($q[1] s)" . "\n");
             }
 
+            fwrite($file, "\n");
             fclose($file);
         }
     }

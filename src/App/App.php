@@ -67,4 +67,9 @@ class App
         // enable page excerpt
         add_post_type_support( 'page', 'excerpt' );
     }
+
+    public function getSiteBaseUrl(): string
+    {
+        return preg_replace("(^https?://)", "", get_site_url() );
+    }
 }
