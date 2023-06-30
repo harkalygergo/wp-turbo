@@ -8,6 +8,16 @@ class Security
 
     public function __construct()
     {
+        // do nothing
+    }
+
+    public function init()
+    {
+        $this->setHooks();
+    }
+
+    public function setHooks()
+    {
         $this->removeVersionsAndGenerators();
 
         include_once 'Captcha.php';
@@ -18,6 +28,9 @@ class Security
 
         // redirects ?author= URLs to homepage to avoid getting author names
         add_action('template_redirect', [&$this, 'action_template_redirect']);
+
+        add_filter('rest_endpoints', [&$this, 'unsetWpJsonUsersEndPoint']);
+
     }
 
 
@@ -69,5 +82,17 @@ class Security
         }
 
         return $text;
+    }
+
+    public function unsetWpJsonUsersEndPoint($endpoints): array
+    {
+        if ( isset( $endpoints['/wp/v2/users'] ) ) {
+            unset( $endpoints['/wp/v2/users'] );
+        }
+        if ( isset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] ) ) {
+            unset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+        }
+
+        return $endpoints;
     }
 }
