@@ -22,7 +22,6 @@ use WPTurbo\App\App;
 
 $config = [];
 
-//include_once 'src/App/App.php';
 include_once 'config.php';
 require_once 'vendor/autoload.php';
 
@@ -35,10 +34,6 @@ function dump(mixed $variable, bool $exit=false)
     global $WPTurbo;
     $WPTurbo->debug->dump($variable, $exit);
 }
-
-// TODO disable /wp-json/wp/v2/users
-
-
 
 class WPTurbo
 {
