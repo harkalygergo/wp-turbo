@@ -3,3 +3,4 @@ config.php
 log/upgrader_process_complete.csv
 
 /vendor/
+/node_modules/
