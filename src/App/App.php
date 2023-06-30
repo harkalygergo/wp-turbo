@@ -1,17 +1,17 @@
 <?php declare( strict_types=1 );
 
-namespace App;
+namespace WPTurbo\App;
 
-use App\Core\CssMinifier;
-use App\Core\Dashboard;
-use App\Core\Debug;
-use App\Core\Email;
-use App\Core\Frontend;
-use App\Core\Log;
-use App\Core\Security;
-use App\Core\SEO;
-use App\Core\User;
-use App\Plugin\WooCommerce;
+use WPTurbo\App\Core\CssMinifier;
+use WPTurbo\App\Core\Dashboard;
+use WPTurbo\App\Core\Debug;
+use WPTurbo\App\Core\Email;
+use WPTurbo\App\Core\Frontend;
+use WPTurbo\App\Core\Log;
+use WPTurbo\App\Core\Security;
+use WPTurbo\App\Core\SEO;
+use WPTurbo\App\Core\User;
+use WPTurbo\App\Plugin\WooCommerce;
 
 // prevent direct access
 if (! defined( 'ABSPATH' ) ) {

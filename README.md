@@ -29,7 +29,9 @@ Multisite compatible plugin to make WordPress better, faster, safer. Universally
 
 Run this code on server to prevent follow style and script changes:
 
-```
+```shell
+composer install
+composer dump-autoload -o
 git update-index --assume-unchanged local/style.css
 git update-index --assume-unchanged local/style.min.css
 git update-index --assume-unchanged local/script.js

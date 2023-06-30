@@ -1,6 +1,6 @@
 <?php declare( strict_types=1 );
 
-namespace App\Core;
+namespace WPTurbo\App\Core;
 
 class Dashboard
 {

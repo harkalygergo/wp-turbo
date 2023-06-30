@@ -1,8 +1,8 @@
 <?php declare( strict_types=1 );
 
-namespace App\Core;
+namespace WPTurbo\App\Core;
 
-use App\App;
+use WPTurbo\App\App;
 
 class CssMinifier
 {
