@@ -29,34 +29,16 @@ class App
 
         $this->init();
 
-        include_once 'Core/Debug.php';
         $this->debug = new Debug();
 
-        include_once 'Core/Log.php';
         (new Log())->setHooks();
-
-        include_once 'Core/CssMinifier.php';
         (new CssMinifier())->init();
-
-        include_once 'Core/Security.php';
-        new Security();
-
-        include_once 'Core/User.php';
+        (new Security())->init();
         (new User())->setHooks();
-
-        include_once 'Core/Dashboard.php';
         (new Dashboard())->init($config);
-
-        include_once 'Core/SEO.php';
         (new SEO())->init();
-
-        include_once 'Core/Frontend.php';
         (new Frontend())->init($config);
-
-        include_once 'Core/Email.php';
         (new Email())->init();
-
-        include_once 'Plugin/WooCommerce.php';
         (new WooCommerce())->init();
     }
 
