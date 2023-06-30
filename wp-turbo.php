@@ -35,3 +35,27 @@ function dump(mixed $variable, bool $exit=false)
 }
 
 // TODO disable /wp-json/wp/v2/users
+
+
+
+class WPTurbo
+{
+    public function __construct()
+    {
+        register_activation_hook( __FILE__, [$this, 'createWPTurboDirectory'] );
+    }
+
+    public function createWPTurboDirectory()
+    {
+        // create directory under wp-content/uploads
+        $wp_upload_dir = wp_upload_dir();
+        $basedir = $wp_upload_dir['basedir'];
+        $WPTurboDirectory = $basedir . '/wp-turbo';
+        if (!file_exists($WPTurboDirectory)) {
+            mkdir($WPTurboDirectory, 0777, true);
+        }
+    }
+
+}
+new WPTurbo();
+
