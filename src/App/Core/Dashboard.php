@@ -206,13 +206,51 @@ class Dashboard
         add_submenu_page($this->menuSlug, 'WC product import', 'WC import', 'manage_options', 'edit.php?post_type=product&page=product_importer');
         add_submenu_page($this->menuSlug, 'WC product export', 'WC export', 'manage_options', 'edit.php?post_type=product&page=product_exporter');
         add_submenu_page($this->menuSlug, 'WP options', 'WP options', 'manage_options', 'options.php');
+        add_submenu_page($this->menuSlug, 'Style CSS', 'Style CSS', 'manage_options', 'style-css', [$this, 'adminCss']);
     }
+
+    public function adminCss()
+    {
+        // https://css-tricks.com/creating-an-editable-textarea-that-supports-syntax-highlighted-code/
+        ?>
+        <div class="wrap">
+            <form method="post" action="options.php">
+                <?php
+                settings_fields( 'wpturbo-css' );
+                do_settings_sections( 'admin-css-textarea' );
+                submit_button();
+                ?>
+            </form>
+        </div>
+
+    <?php }
 
     /**
      * Register and add settings
      */
     public function adminPageInit()
     {
+        // TODO még nincs kész
+        register_setting('wpturbo-css', 'wpturbocss');
+        add_settings_section(
+            'css-textarea', // ID
+            'CSS', // Title
+            array( $this, 'print_section_info' ), // Callback
+            'admin-css-textarea' // Page
+        );
+
+        add_settings_field(
+            'wp-style',
+            'Style',
+            [$this, 'generateFormTextarea'],
+            'admin-css-textarea',
+            'css-textarea',
+            ['name' => 'cscs']
+        );
+
+
+
+
         register_setting($this->optionGroupName, $this->optionName, [$this, 'sanitize']);
 
         add_settings_section(
@@ -284,6 +322,19 @@ class Dashboard
             $args['type'],
             $this->optionName.'['.$args['name'].']',
             $this->optionName.'['.$args['name'].']',
+            isset( $fieldValue ) ? $fieldValue : ''
+        );
+    }
+
+    public function generateFormTextarea($args)
+    {
+        $fieldValue = $this->options[$args['name']];
+
+        printf(
+            '<textarea id="%s" name="%s" rows="10" style="%s">%s</textarea>',
+            $this->optionName.'['.$args['name'].']',
+            $this->optionName.'['.$args['name'].']',
+            'width:100%',
             isset( $fieldValue ) ? $fieldValue : ''
         );
     }
