@@ -85,10 +85,12 @@ class User
             return $query;
         }
 
-        $screen = get_current_screen();
+        if (function_exists('get_current_screen')) {
+            $screen = get_current_screen();
 
-        if( isset( $screen->id ) && $screen->id !== 'users' ) {
-            return $query;
+            if( isset( $screen->id ) && $screen->id !== 'users' ) {
+                return $query;
+            }
         }
 
         if( isset( $_GET[ 'orderby' ] ) && $_GET[ 'orderby' ] == $this->lastLoginMetaKey ) {
