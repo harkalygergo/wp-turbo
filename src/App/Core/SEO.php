@@ -21,6 +21,7 @@ class SEO
 
     public function setFrontendHooks()
     {
+        add_filter( 'pre_get_document_title', [$this, 'addCategoriesToProductHeadTitle'] );
         add_action( 'wp_head', [$this, 'addMetaTitle'], 5 );
         add_action( 'wp_head', [$this, 'addMetaDescription'], 5 );
         add_action( 'wp_head', [$this, 'addSchemaPostMetaToHead'], 5 );
@@ -48,8 +49,20 @@ class SEO
         }
     }
 
+    public function addCategoriesToProductHeadTitle( $title ): string
+    {
+        return $this->getProductCategoriesAsTitlePart()!=='' ? $this->getProductCategoriesAsTitlePart() : $title;
+    }
+
     // function to add meta title into wp_head with product categories name list
     public function addMetaTitle()
+    {
+        if ($this->getProductCategoriesAsTitlePart()!=='') {
+            echo "\n".'<meta name="title" content="' . $this->getProductCategoriesAsTitlePart() . '" />' . "\n";
+        }
+    }
+
+    public function getProductCategoriesAsTitlePart(): string
     {
         if (is_singular(['product'])) {
             global $post;
@@ -64,7 +77,9 @@ class SEO
                 $metaTitle .= ' '.strtolower(implode(' & ', $cat_names));
             endif;
 
-            echo "\n".'<meta name="title" content="' . esc_attr( $metaTitle ) . '" />' . "\n";
+            return esc_attr( $metaTitle );
         }
+
+        return '';
     }
 }
