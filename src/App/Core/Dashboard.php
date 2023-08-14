@@ -207,6 +207,7 @@ class Dashboard
         add_submenu_page($this->menuSlug, 'WC product export', 'WC export', 'manage_options', 'edit.php?post_type=product&page=product_exporter');
         add_submenu_page($this->menuSlug, 'WP options', 'WP options', 'manage_options', 'options.php');
         add_submenu_page($this->menuSlug, 'Style CSS', 'Style CSS', 'manage_options', 'style-css', [$this, 'adminCss']);
+        add_submenu_page($this->menuSlug, 'WP Turbo / Scripts', 'Scripts', 'manage_options', 'wp-turbo-scripts', [Scripts::class, 'admin_page_html']);
     }
 
     public function adminCss()

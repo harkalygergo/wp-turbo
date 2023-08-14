@@ -8,6 +8,7 @@ use WPTurbo\App\Core\Debug;
 use WPTurbo\App\Core\Email;
 use WPTurbo\App\Core\Frontend;
 use WPTurbo\App\Core\Log;
+use WPTurbo\App\Core\Scripts;
 use WPTurbo\App\Core\Security;
 use WPTurbo\App\Core\SEO;
 use WPTurbo\App\Core\User;
@@ -40,6 +41,7 @@ class App
         (new Frontend())->init($config);
         (new Email())->init();
         (new WooCommerce())->init();
+        (new Scripts())->init();
     }
 
     public function init(): void
@@ -48,10 +50,5 @@ class App
         add_filter( 'pre_option_link_manager_enabled', '__return_true' );
         // enable page excerpt
         add_post_type_support( 'page', 'excerpt' );
-    }
-
-    public function getSiteBaseUrl(): string
-    {
-        return preg_replace("(^https?://)", "", get_site_url() );
     }
 }
