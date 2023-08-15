@@ -25,7 +25,7 @@ class Log extends App
         global $wpdb;
 
         if (!is_null($wpdb->queries)) {
-            $file = fopen(trailingslashit(WP_CONTENT_DIR) . 'uploads/wp-turbo/'.Helper::getSiteBaseUrl().'-sqlLogs.sql', 'a');
+            $file = fopen(Helper::getUploadDirectoryPath().Helper::getSiteId().'-sqlLogs.sql', 'a');
 
             fwrite($file, "\n\n------ NEW REQUEST [" . date("F j, Y, g:i:s a") . "] ------\n");
 

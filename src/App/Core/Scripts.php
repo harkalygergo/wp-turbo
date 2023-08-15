@@ -16,7 +16,7 @@ class Scripts
 
     public function setHooks()
     {
-        add_action( 'admin_post_save-script', [$this, 'saveScript'] );
+        add_action('admin_post_save-script', [$this, 'saveScript']);
         add_action('wp_enqueue_scripts', [$this, 'addScriptToHead']);
         add_action('wp_body_open', [$this, 'addScriptToBody']);
         add_action('wp_enqueue_scripts', [$this, 'addScriptToFooter']);
@@ -24,28 +24,28 @@ class Scripts
 
     public function addScriptToHead()
     {
-        if (file_exists(Helper::getUploadDirectoryPath().Helper::getSiteBaseUrl().'-in-head.js')) {
-            wp_enqueue_script('wp-turbo-script-head', Helper::getUploadDirectoryUrl().Helper::getSiteBaseUrl().'-in-head.js', [], false, false);
+        if (file_exists(Helper::getUploadDirectoryPath().Helper::getSiteId().'-head.js')) {
+            wp_enqueue_script('wp-turbo-script-head', Helper::getUploadDirectoryUrl().Helper::getSiteId().'-head.js', [], false, false);
         }
     }
 
     public function addScriptToBody()
     {
-        if (file_exists(Helper::getUploadDirectoryPath().Helper::getSiteBaseUrl().'-after-body-start.js')) {
-            echo '<script src="'.Helper::getUploadDirectoryUrl().Helper::getSiteBaseUrl().'-after-body-start.js'.'"></script>';
+        if (file_exists(Helper::getUploadDirectoryPath().Helper::getSiteId().'-body.js')) {
+            echo '<script src="'.Helper::getUploadDirectoryUrl().Helper::getSiteId().'-body.js'.'?ver='.date('yW').'"></script>';
         }
     }
 
     public function addScriptToFooter()
     {
-        if (file_exists(Helper::getUploadDirectoryPath().Helper::getSiteBaseUrl().'-before-closing-body.js')) {
-            wp_enqueue_script('wp-turbo-script-footer', Helper::getUploadDirectoryUrl().Helper::getSiteBaseUrl().'-before-closing-body.js', [], false, true);
+        if (file_exists(Helper::getUploadDirectoryPath().Helper::getSiteId().'-footer.js')) {
+            wp_enqueue_script('wp-turbo-script-footer', Helper::getUploadDirectoryUrl().Helper::getSiteId().'-footer.js', [], false, true);
         }
     }
 
     public function saveScript()
     {
-        file_put_contents(Helper::getUploadDirectoryPath().Helper::getSiteBaseUrl().'-'.$_POST['placement'].'.js', stripcslashes($_POST['script']));
+        file_put_contents(Helper::getUploadDirectoryPath().Helper::getSiteId().'-'.$_POST['placement'].'.js', stripcslashes($_POST['script']));
         header('Location:'.$_SERVER['HTTP_REFERER']);
     }
 
@@ -67,25 +67,33 @@ class Scripts
             <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
             <!-- Here are our tabs -->
             <nav class="nav-tab-wrapper">
-                <a href="?page=wp-turbo-scripts" class="nav-tab <?php if($tab===null):?>nav-tab-active<?php endif; ?>">Dokumentáció</a>
-                <a href="?page=wp-turbo-scripts&tab=in-head" class="nav-tab <?php if($tab==='in-head'):?>nav-tab-active<?php endif; ?>">before /head</a>
-                <a href="?page=wp-turbo-scripts&tab=after-body-start" class="nav-tab <?php if($tab==='after-body-start'):?>nav-tab-active<?php endif; ?>">after body start</a>
-                <a href="?page=wp-turbo-scripts&tab=before-closing-body" class="nav-tab <?php if($tab==='before-closing-body'):?>nav-tab-active<?php endif; ?>">before closing body</a>
+                <a href="?page=wp-turbo-scripts" class="nav-tab <?php if($tab===null):?>nav-tab-active<?php endif; ?>"><?php _e('Documentation'); ?></a>
+                <a href="?page=wp-turbo-scripts&tab=head" class="nav-tab <?php if($tab==='head'):?>nav-tab-active<?php endif; ?>">head</a>
+                <a href="?page=wp-turbo-scripts&tab=body" class="nav-tab <?php if($tab==='body'):?>nav-tab-active<?php endif; ?>">body</a>
+                <a href="?page=wp-turbo-scripts&tab=footer" class="nav-tab <?php if($tab==='footer'):?>nav-tab-active<?php endif; ?>">footer</a>
             </nav>
 
             <div class="tab-content">
                 <?php switch($tab) :
-                    case 'in-head':
-                        echo (new self)->getTextAreaForm('in-head');
+                    case 'head':
+                        echo (new self)->getTextAreaForm('head');
                         break;
-                    case 'after-body-start':
-                        echo (new self)->getTextAreaForm('after-body-start');
+                    case 'body':
+                        echo (new self)->getTextAreaForm('body');
                         break;
-                    case 'before-closing-body':
-                        echo (new self)->getTextAreaForm('before-closing-body');
+                    case 'footer':
+                        echo (new self)->getTextAreaForm('footer');
                         break;
                     default:
-                        echo 'dokumentáció';
+                        echo '';
+                        ?>
+                        <h2>head</h2>
+                        <p>Script placed into <code>&lt;head&gt;</code> section.</p>
+                        <h2>body</h2>
+                        <p>Script placed after <code>&lt;body&gt;</code> start.</p>
+                        <h2>footer</h2>
+                        <p>Script placed before closing <code>&lt;/body&gt;</code> tag.</p>
+                        <?php
                         break;
                 endswitch; ?>
             </div>
@@ -95,14 +103,13 @@ class Scripts
 
     private function getTextAreaForm(string $scriptPlacement): string
     {
-        $fileContent = Helper::getUploadDirectoryPath().Helper::getSiteBaseUrl().'-'.$scriptPlacement.'.js';
+        $fileContent = Helper::getUploadDirectoryPath().Helper::getSiteId().'-'.$scriptPlacement.'.js';
         if (file_exists($fileContent)) {
             $fileContent = file_get_contents($fileContent);
         } else {
             $fileContent = '';
         }
         return '
-        <h2>'.$scriptPlacement.'</h2>
         <form method="post" action="'.admin_url( 'admin-post.php' ).'">
             <input type="hidden" name="action" value="save-script" />
             <input type="hidden" name="placement" value="'.$scriptPlacement.'">

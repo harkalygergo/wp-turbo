@@ -22,4 +22,9 @@ class Helper
     {
         return preg_replace("(^https?://)", "", get_site_url() );
     }
+
+    public static function getSiteId(): int
+    {
+        return get_current_blog_id();
+    }
 }
