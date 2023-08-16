@@ -74,7 +74,7 @@ class SEO
                 foreach ( $terms as $term ) {
                     $cat_names[] = $term->name;
                 }
-                $metaTitle .= ' '.strtolower(implode(' & ', $cat_names));
+                $metaTitle .= ' '.mb_strtolower(implode(' & ', $cat_names));
             endif;
 
             return esc_attr( $metaTitle.' | '.get_bloginfo( 'name' ) );
