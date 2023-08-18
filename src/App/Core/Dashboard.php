@@ -111,7 +111,6 @@ class Dashboard
             add_filter( 'mime_types', [$this, 'modifyUploadMimeTypes'] );
             add_action( 'admin_menu', [$this, 'addAdminMenu']);
             add_action( 'admin_init', [$this, 'adminPageInit'] );
-            add_action( 'wp_dashboard_setup', [$this, 'addBuyMeCoffeeWidget'] );
         }
     }
 
@@ -136,63 +135,6 @@ class Dashboard
             body.login p#nav a, body.login p#backtoblog a { background-color:white; padding:5px; border-radius:5px; }
         </style>
     <?php }
-
-    public function addBuyMeCoffeeWidget()
-    {
-        wp_add_dashboard_widget(
-            'wp-turbo-coffee-widget',
-            'Technical support',
-            [$this, 'addBuyMeCoffeeWidgetContent'],
-            null,
-            null,
-            'column3'
-        );
-    }
-
-    public function addBuyMeCoffeeWidgetContent()
-    {
-        ?>
-        <style>
-            #wpTurboBuyMeCoffee {
-                --img-width: 120px;
-            }
-            #wpTurboBuyMeCoffee div.description div {
-                float: left;
-                margin-top: 5px;
-                width: calc(100% - var(--img-width));
-            }
-            #wpTurboBuyMeCoffee img {
-                float: right;
-                width: var(--img-width);
-                height: auto;
-                filter: grayscale(0.5);
-            }
-        </style>
-        <div id="wpTurboBuyMeCoffee" class="dashboard-widget-finish-setup" data-current-step="4" data-total-steps="6">
-            <div class="description">
-                <div>
-                    <strong>
-                        <?php echo $this->config['contactName']; ?>
-                        <br><small><?php echo $this->config['contactPosition']; ?></small>
-                    </strong>
-                    <!--br><small>PHP web developer</small-->
-                    <br><?php echo $this->config['contactPhone']; ?>
-                    <br><a href="mailto:<?php echo $this->config['contactEmail']; ?>" target="_blank"><?php echo $this->config['contactEmail']; ?></a>
-                    <br><a href="<?php echo $this->config['contactWebsite']; ?>" target="_blank"><?php echo $this->config['contactWebsite']; ?></a>
-                    <?php if($this->config['contactSupportLink']!=='') : ?>
-                        <div>
-                            <a target="_blank" href="<?php echo $this->config['contactSupportLink']; ?>" class="button button-secondary button-small">
-                                <span class="dashicons dashicons-coffee"></span> buy me a coffee
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <img src="https://www.harkalygergo.hu/media/uploads/hosts/www-harkalygergo.hu/622fb3a307872099393996.jpg" alt="Harkály Gergő">
-            </div>
-            <div class="clear"></div>
-        </div>
-        <?php
-    }
 
     public function addAdminMenu()
     {
@@ -340,15 +282,6 @@ class Dashboard
         );
     }
 
-
-
-
-
-
-
-
-
-
     /**
      * Sanitize each setting field as needed
      *
@@ -409,24 +342,6 @@ class Dashboard
         */
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private function showDashboardHTML($content)
     { ?>
         <div class="wrap">
@@ -459,6 +374,7 @@ class Dashboard
                     'log'           => 'Log',
                     'readme'        => 'ReadMe',
                     'phpinfo'       => 'PhpInfo',
+                    'credits'       => 'Credits',
                 ];
                 foreach($wpTurboMenus as $wpTurboMenuKey => $wpTurboMenuValue) {
                     echo sprintf('<a href="?page=%s&tab=%s" class="nav-tab %s">%s</a>',
@@ -511,6 +427,12 @@ class Dashboard
                         ob_start();
                         phpinfo();
                         echo explode('</body>', explode('<body>', trim (ob_get_clean ()))['1'])['0'];
+                        break;
+                    case 'credits':
+                        echo '<style>img{float:left;margin:0 12px;width:120px;height: auto;filter: grayscale(0.5);}</style><img src="https://www.harkalygergo.hu/media/uploads/hosts/www-harkalygergo.hu/622fb3a307872099393996.jpg" alt="Harkály Gergő">';
+                        echo '<p><b>Harkály Gergő</b><br><small>web developer</small></p>';
+                        echo '<p><a target="_blank" href="//www.harkalygergo.hu" class="button button-primary">www.harkalygergo.hu</a></p>';
+                        echo '<p><a target="_blank" href="https://www.buymeacoffee.com/harkalygergo" class="button button-secondary"><span class="dashicons dashicons-coffee"></span> buy me a coffee</a></p>';
                         break;
                     default:
                         // Set class property

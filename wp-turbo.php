@@ -20,9 +20,11 @@
 
 use WPTurbo\App\App;
 
-$config = [];
+$config = [
+    'pluginURL' => plugin_dir_url(__FILE__),
+];
 
-include_once 'config.php';
+//include_once 'config.php';
 require_once 'vendor/autoload.php';
 
 global $WPTurbo;
