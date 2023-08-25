@@ -4,13 +4,15 @@ namespace WPTurbo\App\Core;
 
 class Scripts
 {
+    private ?array $config = null;
     public function __construct()
     {
         // do nothing
     }
 
-    public function init()
+    public function init(array $config)
     {
+        $this->config = $config;
         $this->setHooks();
     }
 
@@ -28,7 +30,7 @@ class Scripts
         $fileUrl = Helper::getUploadDirectoryUrl().Helper::getSiteId().'-head.js';
 
         if (file_exists($filePath) && filesize($filePath)) {
-            wp_enqueue_script('wp-turbo-script-head', $fileUrl, [], false, false);
+            wp_enqueue_script('wp-turbo-script-head', $fileUrl, [], $this->config['Version'], false);
         }
     }
 
@@ -38,7 +40,7 @@ class Scripts
         $fileUrl = Helper::getUploadDirectoryUrl().Helper::getSiteId().'-body.js';
 
         if (file_exists($filePath) && filesize($filePath)) {
-            echo '<script src="'.$fileUrl.'?ver='.date('yW').'"></script>';
+            echo '<script src="'.$fileUrl.'?ver='.$this->config['Version'].'"></script>';
         }
     }
 
@@ -48,7 +50,7 @@ class Scripts
         $fileUrl = Helper::getUploadDirectoryUrl().Helper::getSiteId().'-footer.js';
 
         if (file_exists($filePath) && filesize($filePath)) {
-            wp_enqueue_script('wp-turbo-script-footer', $fileUrl, [], false, true);
+            wp_enqueue_script('wp-turbo-script-footer', $fileUrl, [], $this->config['Version'], true);
         }
     }
 

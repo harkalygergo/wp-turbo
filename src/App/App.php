@@ -41,7 +41,7 @@ class App
         (new Frontend())->init($config);
         (new Email())->init();
         (new WooCommerce())->init();
-        (new Scripts())->init();
+        (new Scripts())->init($config);
     }
 
     public function init(): void

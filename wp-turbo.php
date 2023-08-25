@@ -3,7 +3,7 @@
 /**
  * @wordpress-plugin
  * Plugin Name: WP Turbo
- * Version:     20230816
+ * Version:     20230825
  * Plugin URI:  https://github.com/harkalygergo/wp-turbo
  * Description: Universal plugin to make WordPress better, faster, safer. More info in README.md
  * Author:      Harkály Gergő
@@ -17,12 +17,10 @@
  * WC requires at least: 3.0
  */
 
-
 use WPTurbo\App\App;
 
-$config = [
-    'pluginURL' => plugin_dir_url(__FILE__),
-];
+$config = get_plugin_data( __FILE__ );
+$config['pluginURL'] = plugin_dir_url(__FILE__);
 
 //include_once 'config.php';
 require_once 'vendor/autoload.php';
