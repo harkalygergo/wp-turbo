@@ -29,15 +29,21 @@ class SEO
 
     public function addMetaDescription()
     {
+        $metaDescription = null;
+        // singulars
         if (is_singular(['post', 'page', 'product'])) {
             $metaDescription = get_the_excerpt();
-        } elseif (is_category() || is_product_category()) {
+        }
+        // categories
+        if (is_category() || is_product_category()) {
             $metaDescription = category_description();
-        } else {
+        }
+
+        if (is_null($metaDescription)) {
             $metaDescription = get_bloginfo( 'description' );
         }
 
-        echo "\n".'<meta name="description" content="' . esc_attr( $metaDescription ) . '" />' . "\n";
+        echo "\n".'<meta name="description" content="' . esc_attr(strip_tags( $metaDescription) ) . '" />' . "\n";
     }
 
     public function addSchemaPostMetaToHead()
