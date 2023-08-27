@@ -6,10 +6,21 @@ Multisite compatible plugin to make WordPress better, faster, safer. Universally
 
 ## Advantages
 
-- SEO elements added, like meta description
-- separate and modifiable files for custom style and script code
-- custom style CSS minifier for faster loading
+### Page
+- 
 - enable page excerpt
+
+### Development
+
+- separate, modifiable and cache-able files for JavaScript code into head, after body start and footer
+
+### SEO
+
+- add description meta for post/page/product and categories
+
+### Other
+
+- custom style CSS minifier for faster loading
 - enable CSV mime type for uploading on dashboard
 - add phone number, Facebook and Instagram URL
 - add month-based image as background on login page

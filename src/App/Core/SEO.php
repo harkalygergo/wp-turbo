@@ -30,8 +30,9 @@ class SEO
     public function addMetaDescription()
     {
         if (is_singular(['post', 'page', 'product'])) {
-            global $post;
-            $metaDescription = $post->post_excerpt;
+            $metaDescription = get_the_excerpt();
+        } elseif (is_category() || is_product_category()) {
+            $metaDescription = category_description();
         } else {
             $metaDescription = get_bloginfo( 'description' );
         }
