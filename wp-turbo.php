@@ -3,7 +3,7 @@
 /**
  * @wordpress-plugin
  * Plugin Name: WP Turbo
- * Version:     20230827
+ * Version:     20230828
  * Plugin URI:  https://github.com/harkalygergo/wp-turbo
  * Description: Universal plugin to make WordPress better, faster, safer. More info in README.md
  * Author:      Harkály Gergő
@@ -29,7 +29,7 @@ global $WPTurbo;
 
 $WPTurbo = new App($config);
 
-function dump(mixed $variable, bool $exit=false)
+function dump(mixed $variable, bool|int $exit=false)
 {
     global $WPTurbo;
     $WPTurbo->debug->dump($variable, $exit);

@@ -30,6 +30,14 @@ class Dashboard
         $this->options = get_option( $this->optionName );
     }
 
+    public static function getOptions(): array
+    {
+        $dashboard = new Dashboard();
+        $dashboard->initVariables();
+
+        return $dashboard->options;
+    }
+
     private function initFrontend(): void
     {
         if (!is_admin()) {
@@ -256,16 +264,16 @@ class Dashboard
         );
     }
 
-    public function generateFormInput($args)
+    public static function generateFormInput($args)
     {
-        $fieldValue = $this->options[$args['name']];
-
+        $dashboard = new Dashboard();
+        $dashboard->initVariables();
         printf(
             '<input type="%s" id="%s" name="%s" value="%s" />',
             $args['type'],
-            $this->optionName.'['.$args['name'].']',
-            $this->optionName.'['.$args['name'].']',
-            isset( $fieldValue ) ? $fieldValue : ''
+            $dashboard->optionName.'['.$args['name'].']',
+            $dashboard->optionName.'['.$args['name'].']',
+            $dashboard->options[$args['name']] ?? ''
         );
     }
 
@@ -309,8 +317,10 @@ class Dashboard
     /**
      * Get the settings option array and print one of its values
      */
-    public function generateFormSelect($args)
+    public static function generateFormSelect($args)
     {
+        $dashboard = new Dashboard();
+        $dashboard->initVariables();
         $input = '';
 
         $options = [
@@ -318,11 +328,11 @@ class Dashboard
         ];
 
         foreach ($options as $optionKey => $optionValue) {
-            $input .= sprintf('<select name="%s" id="%s">', $this->optionName.'['.$optionKey.']', $this->optionName.'['.$optionKey.']');
+            $input .= sprintf('<select name="%s" id="%s">', $dashboard->optionName.'['.$optionKey.']', $dashboard->optionName.'['.$optionKey.']');
             foreach($optionValue as $option) {
                 $input .= sprintf('<option value="%s" %s>%s</option>',
                     $option,
-                    (isset($this->options[$optionKey]) && $this->options[$optionKey]===$option) ? 'selected' : '',
+                    (isset($dashboard->options[$optionKey]) && $dashboard->options[$optionKey]===$option) ? 'selected' : '',
                     $option
                 );
             }

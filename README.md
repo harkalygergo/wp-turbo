@@ -13,6 +13,7 @@ Multisite compatible plugin to make WordPress better, faster, safer. Universally
 ### Development
 
 - separate, modifiable and cache-able files for JavaScript code into head, after body start and footer
+- option to add "logged-in-user-[ID]" class to body
 
 ### SEO
 

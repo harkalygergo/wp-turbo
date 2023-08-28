@@ -9,7 +9,7 @@ class Debug
         // do nothing
     }
 
-    public function dump(mixed $variable, bool $exit=false)
+    public function dump(mixed $variable, bool|int $exit=false)
     {
         if (is_bool($variable)) {
             $variable = $variable ? 1 : 0;

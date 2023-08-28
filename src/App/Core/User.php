@@ -17,12 +17,53 @@ class User
     {
         add_action( 'wp_login', [$this, 'action_wp_login'], 10, 2 );
 
+        if (isset(Dashboard::getOptions()['loggedInUserIdBodyClass']) && Dashboard::getOptions()['loggedInUserIdBodyClass'] === "true") {
+            add_action('body_class', [$this, 'addLoggedInUserIdBodyClass']);
+        }
+
         if (is_admin()) {
             add_filter('manage_users_columns', [$this, 'addRegistrationLastLoginColumns']);
             add_filter('manage_users_custom_column', [$this, 'addRegistrationLastLoginColumnsResults'], 10, 3);
             add_filter('manage_users_sortable_columns', [$this, 'filterRegistrationLastLoginColumnsResults'], 10, 1);
             add_action( 'pre_get_users', [$this, 'action_pre_get_users'] );
+            add_action( 'admin_init', [$this, 'addSettingsOptions'] );
         }
+    }
+
+    public function addSettingsOptions()
+    {
+        add_settings_section(
+            'wp-turbo-settings-user', // ID
+            'User', // Title
+            _e(''), // Callback
+            'my-setting-admin' // Page
+        );
+
+        add_settings_field(
+            'loggedInUserIdBodyClass',
+            'Add "logged-in-user-[ID]" class to body?',
+            [Dashboard::class, 'generateFormSelect'],
+            'my-setting-admin',
+            'wp-turbo-settings-user',
+            ['name' => 'loggedInUserIdBodyClass']
+        );
+    }
+
+    /**
+     * Add custom field body class(es) to the body classes.
+     *
+     * It accepts values from a per-page custom field, and only outputs when viewing a singular static Page.
+     *
+     * @param array $classes Existing body classes.
+     * @return array Amended body classes.
+     */
+    public function addLoggedInUserIdBodyClass( array $classes ): array
+    {
+        if (is_user_logged_in()) {
+            $classes[] = 'logged-in-user-'.get_current_user_id();
+        }
+
+        return $classes;
     }
 
     /**
