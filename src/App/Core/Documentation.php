@@ -1,6 +1,25 @@
 <h2>Documentation</h2>
 <ul>
     <li>
+        <b>Add "logged-in-user-[ID]" class to body?</b>
+        <br>If it is true and user logged in, ID is reachable with JavaScript, example code below.
+        <pre>
+function getLoggedInUserID() {
+    const body = document.querySelector('body');
+    const classNames = body.className.split(' ');
+
+    for (const className of classNames) {
+        if (className.startsWith('logged-in-user-')) {
+            const id = className.substring('logged-in-user-'.length);
+            return id;
+        }
+    }
+
+    return null; // Return null if the class is not found
+}
+        </pre>
+    </li>
+    <li>
         <b>SKU search is enabled?</b>
         <br>True esetében frontenden is lehetőség van cikkszámra keresni.
     </li>
