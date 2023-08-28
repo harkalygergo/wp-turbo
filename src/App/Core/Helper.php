@@ -6,7 +6,8 @@ class Helper
 {
     public static function getUploadDirectoryPath(): string
     {
-        $WPTurboDirectory = wp_upload_dir()['basedir'] . '/wp-turbo';
+        // $WPTurboDirectory = wp_upload_dir()['basedir'] . '/wp-turbo';
+        $WPTurboDirectory = WP_CONTENT_DIR . '/uploads/wp-turbo';
         if (!file_exists($WPTurboDirectory)) {
             mkdir($WPTurboDirectory, 0777, true);
         }
@@ -16,7 +17,8 @@ class Helper
 
     public static function getUploadDirectoryUrl()
     {
-        return wp_upload_dir()['baseurl'] . '/wp-turbo/';
+        //return wp_upload_dir()['baseurl'] . '/wp-turbo/';
+        return WP_CONTENT_URL . '/uploads/wp-turbo/';
     }
     public static function getSiteBaseUrl(): string
     {
