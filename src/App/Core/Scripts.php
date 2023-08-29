@@ -26,14 +26,6 @@ class Scripts
 
     public function addScriptToHead()
     {
-        // site
-        $filePath = Helper::getUploadDirectoryPath().Helper::getSiteId().'-head.js';
-        $fileUrl = Helper::getUploadDirectoryUrl().Helper::getSiteId().'-head.js';
-
-        if (file_exists($filePath) && filesize($filePath)) {
-            wp_enqueue_script('wp-turbo-script-head', $fileUrl, [], $this->config['Version'], false);
-        }
-
         // multisite
         if (is_multisite()) {
             $filePath = Helper::getUploadDirectoryPath().'multisite-head.js';
@@ -43,18 +35,18 @@ class Scripts
                 wp_enqueue_script('wp-turbo-script-multisite-head', $fileUrl, [], $this->config['Version'], false);
             }
         }
+
+        // site
+        $filePath = Helper::getUploadDirectoryPath().Helper::getSiteId().'-head.js';
+        $fileUrl = Helper::getUploadDirectoryUrl().Helper::getSiteId().'-head.js';
+
+        if (file_exists($filePath) && filesize($filePath)) {
+            wp_enqueue_script('wp-turbo-script-head', $fileUrl, [], $this->config['Version'], false);
+        }
     }
 
     public function addScriptToBody()
     {
-        // site
-        $filePath = Helper::getUploadDirectoryPath().Helper::getSiteId().'-body.js';
-        $fileUrl = Helper::getUploadDirectoryUrl().Helper::getSiteId().'-body.js';
-
-        if (file_exists($filePath) && filesize($filePath)) {
-            echo '<script src="'.$fileUrl.'?ver='.$this->config['Version'].'"></script>';
-        }
-
         // multisite
         if (is_multisite()) {
             $filePath = Helper::getUploadDirectoryPath().'multisite-body.js';
@@ -64,18 +56,18 @@ class Scripts
                 echo '<script src="'.$fileUrl.'?ver='.$this->config['Version'].'"></script>';
             }
         }
+
+        // site
+        $filePath = Helper::getUploadDirectoryPath().Helper::getSiteId().'-body.js';
+        $fileUrl = Helper::getUploadDirectoryUrl().Helper::getSiteId().'-body.js';
+
+        if (file_exists($filePath) && filesize($filePath)) {
+            echo '<script src="'.$fileUrl.'?ver='.$this->config['Version'].'"></script>';
+        }
     }
 
     public function addScriptToFooter()
     {
-        // site
-        $filePath = Helper::getUploadDirectoryPath().Helper::getSiteId().'-footer.js';
-        $fileUrl = Helper::getUploadDirectoryUrl().Helper::getSiteId().'-footer.js';
-
-        if (file_exists($filePath) && filesize($filePath)) {
-            wp_enqueue_script('wp-turbo-script-footer', $fileUrl, [], $this->config['Version'], true);
-        }
-
         // multisite
         if (is_multisite()) {
             $filePath = Helper::getUploadDirectoryPath().'multisite-footer.js';
@@ -84,6 +76,14 @@ class Scripts
             if (file_exists($filePath) && filesize($filePath)) {
                 wp_enqueue_script('wp-turbo-script-multisite-footer', $fileUrl, [], $this->config['Version'], true);
             }
+        }
+
+        // site
+        $filePath = Helper::getUploadDirectoryPath().Helper::getSiteId().'-footer.js';
+        $fileUrl = Helper::getUploadDirectoryUrl().Helper::getSiteId().'-footer.js';
+
+        if (file_exists($filePath) && filesize($filePath)) {
+            wp_enqueue_script('wp-turbo-script-footer', $fileUrl, [], $this->config['Version'], true);
         }
     }
 
