@@ -19,7 +19,8 @@
 
 use WPTurbo\App\App;
 
-$config = get_plugin_data( __FILE__ );
+$config = []; // get_plugin_data( __FILE__ );
+$config['Version'] = 20230904;
 $config['pluginURL'] = plugin_dir_url(__FILE__);
 
 //include_once 'config.php';
