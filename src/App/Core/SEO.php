@@ -35,8 +35,15 @@ class SEO
             $metaDescription = get_the_excerpt();
         }
         // categories
-        if (is_category() || is_product_category()) {
+        if (is_category()) {
             $metaDescription = category_description();
+        }
+
+        // WooCommerce product category
+        if (Helper::isWooCommerceActive()) {
+            if (is_product_category()) {
+                $metaDescription = category_description();
+            }
         }
 
         if (is_null($metaDescription)) {

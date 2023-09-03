@@ -29,4 +29,18 @@ class Helper
     {
         return get_current_blog_id();
     }
+
+    public static function isWooCommerceActive(): bool
+    {
+        /**
+         * Check if WooCommerce is activated
+         */
+        if ( ! function_exists( 'is_woocommerce_activated' ) ) {
+            function is_woocommerce_activated() {
+                return class_exists('WooCommerce');
+            }
+        }
+
+        return is_woocommerce_activated();
+    }
 }
