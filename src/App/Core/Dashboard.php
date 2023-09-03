@@ -26,8 +26,11 @@ class Dashboard
 
     private function initVariables(): void
     {
-        //$this->options = get_option( $this->menuSlug );
-        $this->options = get_option( $this->optionName );
+        $this->options = [];
+
+        if (get_option( $this->optionName )) {
+            $this->options = get_option( $this->optionName );
+        }
     }
 
     public static function getOptions(): array
