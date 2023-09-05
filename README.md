@@ -46,7 +46,6 @@ composer install
 composer dump-autoload -o
 git update-index --assume-unchanged local/style.css
 git update-index --assume-unchanged local/style.min.css
-git update-index --assume-unchanged local/script.js
 ```
 
 ### Multisite

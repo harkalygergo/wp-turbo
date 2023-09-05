@@ -25,7 +25,6 @@ class Frontend
 
         if ($wpOptions) {
             wp_enqueue_style( 'wp-turbo-style', $this->config['pluginURL'].'local/style.min.css', [], date('Ymd'), 'all' );
-            wp_enqueue_script( 'wp-turbo-script', $this->config['pluginURL'].'local/script.js', [], date('Ymd'), true);
         }
     }
 }
