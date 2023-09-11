@@ -392,7 +392,7 @@ class Dashboard
                     echo sprintf('<a href="?page=%s&tab=%s" class="nav-tab %s">%s</a>',
                      $this->menuSlug,
                      (string) $wpTurboMenuKey,
-                     ($tab===$wpTurboMenuKey) ? 'nav-tab-active' : '',
+                     ($tab===$wpTurboMenuKey || ($wpTurboMenuKey==='' && is_null($tab) ) ) ? 'nav-tab-active' : '',
                     $wpTurboMenuValue
                     );
                 }
