@@ -21,7 +21,6 @@ class SEO
 
     public function setFrontendHooks()
     {
-        add_filter( 'pre_get_document_title', [$this, 'addCategoriesToProductHeadTitle'], 10000 );
         add_action( 'wp_head', [$this, 'addMetaTitle'], 5 );
         add_action( 'wp_head', [$this, 'addMetaDescription'], 5 );
         add_action( 'wp_head', [$this, 'addSchemaPostMetaToHead'], 5 );
