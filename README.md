@@ -6,34 +6,38 @@ Multisite compatible plugin to make WordPress better, faster, safer. Universally
 
 ## Advantages
 
+### General
+
+- change default e-mail sender name and address to `blogname` name and `admin_email`
+- add user registration date column for Users dashboard page
+- add user last login function and column for Users dashboard page
+- add month-based image as background on login page
+- enable CSV mime type for uploading on dashboard
+- add phone number, Facebook and Instagram URL
+
 ### Page
-- 
+
 - enable page excerpt
-
-### Development
-
-- separate, modifiable and cache-able files for JavaScript code into head, after body start and footer
-- option to add "logged-in-user-[ID]" class to body
 
 ### SEO
 
 - add description meta for post/page/product and categories
 
-### Other
+### WooCommerce
 
+- option to remove wp-blocks styles and scripts from frontend
+- enable SKU-based search for WooCommerce
+- option to exclude featured products from products loop
+- title, description and keywords meta for WooCommerce product categories
+
+### Development
+
+- simple `dump($variable, $isExit)` function for debug
 - custom style CSS minifier for faster loading
-- enable CSV mime type for uploading on dashboard
-- add phone number, Facebook and Instagram URL
-- add month-based image as background on login page
-- change default e-mail sender name and address to `blogname` name and `admin_email`
+- separate, modifiable and cache-able files for JavaScript code into head, after body start and footer
+- option to add "logged-in-user-[ID]" class to body
 - `phpinfo()` result in dashboard
 - logging plugin updates
-- add user registration date column for Users dashboard page
-- add user last login function and column for Users dashboard page
-- enable SKU-based search for WooCommerce
-- exclude featured products from products loop
-- simple `dump($variable, $isExit)` function for debug
-- title, description and keywords meta for WooCommerce product categories
 
 ---
 
@@ -46,7 +50,6 @@ composer install
 composer dump-autoload -o
 git update-index --assume-unchanged local/style.css
 git update-index --assume-unchanged local/style.min.css
-git update-index --assume-unchanged local/script.js
 ```
 
 ### Multisite
