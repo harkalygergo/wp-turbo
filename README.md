@@ -25,9 +25,10 @@ Multisite compatible plugin to make WordPress better, faster, safer. Universally
 
 ### WooCommerce
 
-- option to remove wp-blocks styles and scripts from frontend
+- option to remove wc-blocks styles and scripts from frontend
 - enable SKU-based search for WooCommerce
 - option to exclude featured products from products loop
+- option to add product category to product meta title
 - title, description and keywords meta for WooCommerce product categories
 
 ### Development

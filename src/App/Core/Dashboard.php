@@ -52,7 +52,7 @@ class Dashboard
                 add_action( 'woocommerce_product_query', [$this, 'excludeFeaturedProductsFromLoop']);
             }
 
-            if (isset($this->options['enableAppendCategory']) && $this->options['enableAppendCategory'] === "true") {
+            if (isset($this->options['enableAppendProductCategory']) && $this->options['enableAppendProductCategory'] === "true") {
                 add_filter('pre_get_document_title', [(new \WPTurbo\App\Core\SEO()), 'addCategoriesToProductHeadTitle'], 10000);
             }
         }
@@ -270,12 +270,12 @@ class Dashboard
         );
 
         add_settings_field(
-            'enableAppendCategory',
-            'Add surface types to title?',
+            'enableAppendProductCategory',
+            'Add product category to title?',
             [$this, 'generateFormSelect'],
             'my-setting-admin',
             'wp-turbo-settings-woocommerce',
-            ['name' => 'enableAppendCategory']
+            ['name' => 'enableAppendProductCategory']
         );
     }
 
