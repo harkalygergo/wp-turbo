@@ -44,13 +44,16 @@ class Dashboard
     private function initFrontend(): void
     {
         if (!is_admin()) {
-
             if (isset($this->options['enableSearchBySku']) && $this->options['enableSearchBySku'] === "true") {
                 add_filter( 'posts_search', [$this, 'searchBySku'], 999, 2 );
             }
 
             if (isset($this->options['excludeFeaturedProductsFromLoop']) && $this->options['excludeFeaturedProductsFromLoop'] === "true") {
                 add_action( 'woocommerce_product_query', [$this, 'excludeFeaturedProductsFromLoop']);
+            }
+
+            if (isset($this->options['enableAppendCategory']) && $this->options['enableAppendCategory'] === "true") {
+                add_filter('pre_get_document_title', [(new \WPTurbo\App\Core\SEO()), 'addCategoriesToProductHeadTitle'], 10000);
             }
         }
     }
@@ -204,6 +207,7 @@ class Dashboard
 
 
 
+
         register_setting($this->optionGroupName, $this->optionName, [$this, 'sanitize']);
 
         add_settings_section(
@@ -263,6 +267,15 @@ class Dashboard
             'my-setting-admin',
             'wp-turbo-settings-woocommerce',
             ['name' => 'excludeFeaturedProductsFromLoop']
+        );
+
+        add_settings_field(
+            'enableAppendCategory',
+            'Add surface types to title?',
+            [$this, 'generateFormSelect'],
+            'my-setting-admin',
+            'wp-turbo-settings-woocommerce',
+            ['name' => 'enableAppendCategory']
         );
     }
 
