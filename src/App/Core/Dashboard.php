@@ -56,8 +56,6 @@ class Dashboard
                 add_filter('pre_get_document_title', [(new \WPTurbo\App\Core\SEO()), 'addCategoriesToProductHeadTitle'], 10000);
             }
         }
-
-
     }
 
     public function excludeFeaturedProductsFromLoop($query)
