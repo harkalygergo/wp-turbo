@@ -44,7 +44,6 @@ class Dashboard
     private function initFrontend(): void
     {
         if (!is_admin()) {
-            var_dump($this->options);
             if (isset($this->options['enableSearchBySku']) && $this->options['enableSearchBySku'] === "true") {
                 add_filter( 'posts_search', [$this, 'searchBySku'], 999, 2 );
             }
@@ -54,7 +53,6 @@ class Dashboard
             }
 
             if (isset($this->options['enableAppendSurfaceToTitle']) && $this->options['enableAppendSurfaceToTitle'] === "true") {
-
                 add_filter('pre_get_document_title', [(new \WPTurbo\App\Core\SEO()), 'addCategoriesToProductHeadTitle'], 10000);
             }
         }
