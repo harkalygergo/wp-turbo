@@ -23,7 +23,7 @@ class Log extends App
 
     public function saveVisitorData(): void
     {
-        if (is_admin()) {
+        if (is_admin() || wp_doing_ajax()) {
             return;
         }
 
