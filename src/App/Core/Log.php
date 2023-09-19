@@ -40,7 +40,7 @@ class Log extends App
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
         $log = sprintf('"%s";"%s";%d;"%s";"%s";"%s"',
-            date('Y-m-d H:i:s'), // Time
+            date_i18n('Y-m-d H:i:s'), // Time
             $user_ip_address, // IP Address
             get_current_user_id(), // User ID
             $referrer_url, // Reffer URL
