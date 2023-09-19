@@ -23,7 +23,7 @@ class Log extends App
 
     public function saveVisitorData(): void
     {
-        if (is_admin() || wp_doing_ajax()) {
+        if (is_admin() || wp_doing_ajax() || $this->isBot()) {
             return;
         }
 
@@ -51,6 +51,13 @@ class Log extends App
         $this->stream = fopen(wp_upload_dir()['basedir']."/wp-turbo/visitorlog-".date('Ymd').".csv", "a+");
         fwrite($this->stream, $log . "\n");
         fclose($this->stream);
+    }
+
+    public function isBot(): bool
+    {
+        preg_match('/bot|curl|spider|google|uptimerobot|facebook|twitter^$/i', $_SERVER['HTTP_USER_AGENT'], $matches);
+
+        return (empty($matches)) ? false : true;
     }
 
     public function SaveQueriesLogger()
