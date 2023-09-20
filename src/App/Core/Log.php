@@ -55,6 +55,10 @@ class Log extends App
 
     public function isBot(): bool
     {
+        if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+            return false;
+        }
+
         preg_match('/bot|curl|spider|google|uptimerobot|facebook|twitter^$/i', $_SERVER['HTTP_USER_AGENT'], $matches);
 
         return (empty($matches)) ? false : true;
