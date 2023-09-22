@@ -37,7 +37,7 @@ class Log extends App
         // Get server related info
         $user_ip_address = $_SERVER['REMOTE_ADDR'];
         $referrer_url = $_SERVER['HTTP_REFERER'] ?? '';
-        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
         $log = sprintf('"%s";"%s";%d;"%s";"%s";"%s"',
             date_i18n('Y-m-d H:i:s'), // Time
