@@ -49,7 +49,9 @@ class SEO
             $metaDescription = get_bloginfo( 'description' );
         }
 
-        echo "\n".'<meta name="description" content="' . esc_attr(strip_tags( $metaDescription) ) . '" />' . "\n";
+        if (!is_null($metaDescription)) {
+            echo "\n".'<meta name="description" content="' . esc_attr(strip_tags( $metaDescription) ) . '" />' . "\n";
+        }
     }
 
     public function addSchemaPostMetaToHead()

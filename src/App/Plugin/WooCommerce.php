@@ -81,8 +81,11 @@ class WooCommerce
         $currentCategory = get_queried_object();
 
         if (is_product_category()) {
-            echo '<meta name="description" content="'.get_term_meta($currentCategory->term_id, $this->productCategoryDescriptionKey, true).'" />'."\n";
-            echo '<meta name="keywords" content="'.get_term_meta($currentCategory->term_id, $this->productCategoryKeywordsKey, true).'" />'."\n";
+            //echo '<meta name="description" content="'.get_term_meta($currentCategory->term_id, $this->productCategoryDescriptionKey, true).'" />'."\n";
+            $keywords = get_term_meta($currentCategory->term_id, $this->productCategoryKeywordsKey, true);
+            if ($keywords) {
+                echo '<meta name="keywords" content="'.$keywords.'" />'."\n";
+            }
         }
     }
 
