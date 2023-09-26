@@ -48,6 +48,11 @@ class WooCommerce
     {
         if (is_admin()) {
             add_action( 'admin_init', [$this, 'addSettingsOptions'] );
+        } else {
+            if (isset(Dashboard::getOptions()['removeWooCommerceBlocksStylesAndScripts']) && Dashboard::getOptions()['removeWooCommerceBlocksStylesAndScripts'] === "true") {
+                add_action( 'init', [$this, 'disableWpBlocksCSS'], 100 );
+                add_action( 'init', [$this, 'disableWpBlocksJS'], 100 );
+            }
         }
 
         add_action('product_cat_add_form_fields', [$this, 'addProductCategoryCustomFields'], 10, 1);
@@ -56,18 +61,13 @@ class WooCommerce
         add_action('create_product_cat', [$this, 'actionSaveCustomFields'], 10, 1);
         add_action('edited_product_cat', [$this, 'actionSaveCustomFields'], 10, 1);
         add_action( 'wp_head', [$this, 'addProductCategoryDescriptionAndKeywords'], 2);
-
-        if (isset(Dashboard::getOptions()['removeWooCommerceBlocksStylesAndScripts']) && Dashboard::getOptions()['removeWooCommerceBlocksStylesAndScripts'] === "true") {
-            add_action( 'init', [$this, 'disableWpBlocksCSS'], 100 );
-            add_action( 'init', [$this, 'disableWpBlocksJS'], 100 );
-        }
     }
 
     public function addSettingsOptions()
     {
         add_settings_field(
             'removeWooCommerceBlocksStylesAndScripts',
-            'Remove wp-blocks styles and scripts?',
+            'Remove wp-blocks styles and scripts on frontend?',
             [Dashboard::class, 'generateFormSelect'],
             'my-setting-admin',
             'wp-turbo-settings-woocommerce',
