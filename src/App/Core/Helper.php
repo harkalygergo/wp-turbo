@@ -35,6 +35,7 @@ class Helper
         /**
          * Check if WooCommerce is activated
          */
+        /*
         if ( ! function_exists( 'is_woocommerce_activated' ) ) {
             function is_woocommerce_activated() {
                 return class_exists('WooCommerce');
@@ -42,5 +43,6 @@ class Helper
         }
 
         return is_woocommerce_activated();
+        */
     }
 }
