@@ -77,7 +77,7 @@ class WooCommerceCartSessions extends \WPTurbo
                             echo '<ul>';
                             foreach ($cart_products as $cartItem) {
                                 $product = $this->getProduct($cartItem);
-                                echo '<li>'.$product->get_name().' ('.__('quantity', 'paperstories-plugin').': '.$cartItem['quantity'].')</li>';
+                                echo '<li><a target="_blank" href="'.$product->get_permalink().'">'.$product->get_name().' ('.__('quantity', 'paperstories-plugin').': '.$cartItem['quantity'].')</a></li>';
                             }
                             echo '</ul>';
                         }
