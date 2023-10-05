@@ -42,7 +42,7 @@ class WooCommerceCartSessions extends \WPTurbo
                 echo '<table class="wp-list-table widefat fixed striped">';
                 echo '<thead>
                         <tr>
-                            <th>#ID</th>
+                            <th># / ID</th>
                             <th>'.__('User').'</th>
                             <th>'.__('Expiry date', 'woocommerce').'</th>
                             <th>'.__('Subtotal', 'woocommerce').'</th>
@@ -52,6 +52,8 @@ class WooCommerceCartSessions extends \WPTurbo
                       </thead>
                       <tbody>
                 ';
+                $i = 0;
+
                 foreach ($cartSessions as $cart) {
                     $session_data = maybe_unserialize($cart->session_value);
                     $cartTotals = maybe_unserialize($session_data['cart_totals']);
@@ -64,7 +66,7 @@ class WooCommerceCartSessions extends \WPTurbo
                     }
 
                     echo '<tr>';
-                        echo '<td>' . $cart->session_id. '</td>';
+                        echo '<td>' . ++$i. '. / ' . $cart->session_id. '</td>';
                         echo '<td>' . $user. '</td>';
                         echo '<td>' . date('Y-m-d H:i:s', (int)$cart->session_expiry) . '</td>';
                         echo '<td>' . $cartSubtotal. '</td>';
