@@ -45,7 +45,7 @@ class App
         (new WooCommerce())->init();
         (new Scripts())->init($config);
         //(new Cache())->init();
-        (new WooCommerceCartSessions())->init();
+        //(new WooCommerceCartSessions())->init();
     }
 
     public function init(): void
