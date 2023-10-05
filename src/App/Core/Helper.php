@@ -44,5 +44,7 @@ class Helper
 
         return is_woocommerce_activated();
         */
+
+        return true;
     }
 }
