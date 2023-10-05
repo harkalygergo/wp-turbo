@@ -95,13 +95,14 @@ class WooCommerceCartSessions extends \WPTurbo
         $user = $cart->session_key;
         // if $user is integer, get user display name and create a link to the user's profile
         if (is_numeric($user)) {
-            $user = get_user_by('id', $user);
+            $userObject = get_user_by('id', $user);
             // exit if user is administrator
-            if (in_array('administrator', $user->roles)) {
+            if (in_array('administrator', $userObject->roles)) {
                 return null;
             }
 
-            $user = '<a href="' . esc_url(get_edit_user_link($user->ID)) . '">' . esc_html($user->display_name) . '</a>';
+            $user = '<a href="' . esc_url(get_edit_user_link($userObject->ID)) . '">' . esc_html($userObject->display_name) . '</a>';
+            $user .= ' (<a target="_blank" href="/wp-admin/edit.php?post_type=shop_order&_customer_user='.$userObject->ID.'">' . __('Orders', 'woocommerce') . '</a>)';
         }
 
         return $user;
