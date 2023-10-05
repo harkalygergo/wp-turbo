@@ -2,6 +2,7 @@
 
 namespace WPTurbo\App;
 
+use WPTurbo\App\Core\Cache;
 use WPTurbo\App\Core\CssMinifier;
 use WPTurbo\App\Core\Dashboard;
 use WPTurbo\App\Core\Debug;
@@ -13,6 +14,7 @@ use WPTurbo\App\Core\Security;
 use WPTurbo\App\Core\SEO;
 use WPTurbo\App\Core\User;
 use WPTurbo\App\Plugin\WooCommerce;
+use WPTurbo\App\Plugin\WooCommerceCartSessions;
 
 // prevent direct access
 if (! defined( 'ABSPATH' ) ) {
@@ -42,6 +44,8 @@ class App
         (new Email())->init();
         (new WooCommerce())->init();
         (new Scripts())->init($config);
+        //(new Cache())->init();
+        (new WooCommerceCartSessions())->init();
     }
 
     public function init(): void

@@ -30,6 +30,7 @@ Multisite compatible plugin to make WordPress better, faster, safer. Universally
 - option to exclude featured products from products loop
 - option to add product category to product meta title
 - title, description and keywords meta for WooCommerce product categories
+- show cart sessions list in dashboard
 
 ### Development
 
