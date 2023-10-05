@@ -3,6 +3,7 @@
 namespace WPTurbo\App\Plugin;
 
 use WPTurbo\App\Core\Dashboard;
+use WPTurbo\App\Core\Helper;
 
 class WooCommerce
 {
@@ -17,7 +18,7 @@ class WooCommerce
 
     public function init()
     {
-        if ($this->is_woocommerce_activated()) {
+        if (Helper::isWooCommerceActive()) {
             $this->setVariables();
             $this->setHooks();
         }
@@ -27,21 +28,6 @@ class WooCommerce
     {
         $this->productCategoryDescriptionKey = '_meta_description';
         $this->productCategoryKeywordsKey = '_meta_keywords';
-    }
-
-    /**
-     * Check if WooCommerce is activated
-     */
-    private function is_woocommerce_activated(): bool
-    {
-        if ( ! function_exists( 'is_woocommerce_activated' ) ) {
-            function is_woocommerce_activated()
-            {
-                return class_exists( 'woocommerce' );
-            }
-        }
-
-        return is_woocommerce_activated();
     }
 
     public function setHooks()
