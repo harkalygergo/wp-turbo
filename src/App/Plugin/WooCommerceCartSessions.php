@@ -112,7 +112,7 @@ class WooCommerceCartSessions extends \WPTurbo
     {
         global $wpdb;
         $table_name = $wpdb->prefix . 'woocommerce_sessions';
-        $query      = "SELECT * FROM $table_name ORDER BY session_expiry";
+        $query      = "SELECT * FROM $table_name ORDER BY session_expiry DESC";
 
         return $wpdb->get_results( $query );
     }
