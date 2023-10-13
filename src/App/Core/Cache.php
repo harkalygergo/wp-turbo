@@ -88,7 +88,7 @@ class Cache
             exec($command);
 
             $myfile = fopen($file, "a");
-            fwrite($myfile, '<!-- Generated HTML - '.date('Y-m-d H:i:s').' -->');
+            fwrite($myfile, '<!-- '.$objectID.' generated HTML - '.date('Y-m-d H:i:s').' -->');
             fclose($myfile);
         }
 
