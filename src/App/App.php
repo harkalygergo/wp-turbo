@@ -44,7 +44,7 @@ class App
         (new Email())->init();
         (new WooCommerce())->init();
         (new Scripts())->init($config);
-        //(new Cache())->init();
+        (new Cache())->init();
         (new WooCommerceCartSessions())->init();
     }
 
