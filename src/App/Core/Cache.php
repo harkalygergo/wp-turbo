@@ -77,7 +77,6 @@ class Cache
         $basedir = $wp_upload_dir['basedir'];
         $WPTurboDirectory = $basedir . '/wp-turbo/';
         $file = $WPTurboDirectory.$objectID.".html";
-        dump($file);
 
         if ((!file_exists($file))) {
             //$url = str_replace('loc', 'www', $url);
