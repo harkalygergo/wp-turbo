@@ -45,7 +45,7 @@ class Cache
 
     public function generateAndReturnWithHtmlFile(\WP $wp)
     {
-        if (is_admin() || is_checkout() || is_cart() || is_account_page() || is_search() ) {
+        if (is_admin() || is_checkout() || is_cart() || is_account_page() || is_search() || wp_doing_ajax() || is_404()) {
             return;
         }
 
