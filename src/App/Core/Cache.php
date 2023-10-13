@@ -45,7 +45,11 @@ class Cache
 
     public function generateAndReturnWithHtmlFile(\WP $wp)
     {
-        if (is_admin() || is_checkout() || is_cart() || is_account_page() || is_search() || wp_doing_ajax() || is_404() || !empty($_GET)) {
+        if (is_admin() || is_checkout() || is_cart() || is_account_page() || is_search() || wp_doing_ajax() || is_404()) {
+            return;
+        }
+
+        if (!empty($_GET) && !in_array($_GET, ['gclid', 'fbclid'])) {
             return;
         }
 
