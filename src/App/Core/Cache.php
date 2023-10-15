@@ -49,6 +49,10 @@ class Cache
             return;
         }
 
+        if (is_user_logged_in() && current_user_can('administrator') && current_user_can( 'manage_options' )) {
+            return;
+        }
+
         if (!empty($_GET) && !in_array($_GET, ['gclid', 'fbclid'])) {
             return;
         }
