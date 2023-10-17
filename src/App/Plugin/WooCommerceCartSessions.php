@@ -56,21 +56,31 @@ class WooCommerceCartSessions extends \WPTurbo
 
                 foreach ($cartSessions as $cart) {
                     $session_data = maybe_unserialize($cart->session_value);
-                    $cartTotals = maybe_unserialize($session_data['cart_totals']);
-                    $cartSubtotal = $cartTotals['subtotal'] + $cartTotals['subtotal_tax'];
-                    $cart_products = $session_data['cart'] ?? [];
+                    $cartTotals = isset($session_data['cart_totals']) ? maybe_unserialize($session_data['cart_totals']) : [];
 
-                    $user = $this->getUser($cart);
-                    if (is_null($user)) {
-                        continue;
-                    }
+                    if (!empty($cartTotals)) {
+                        $cartSubtotal = $cartTotals['subtotal'] + $cartTotals['subtotal_tax'];
+                        $cart_products = $session_data['cart'] ?? [];
 
-                    echo '<tr>';
+                        $user = $this->getUser($cart);
+                        if (is_null($user)) {
+                            continue;
+                        }
+
+                        $applied_coupons = '';
+                        if (isset($session_data['applied_coupons'])) {
+                            $applied_coupons = maybe_unserialize($session_data['applied_coupons']);
+                            if (is_array($applied_coupons)) {
+                                $applied_coupons = implode(', ', $applied_coupons);
+                            }
+                        }
+
+                        echo '<tr>';
                         echo '<td>' . ++$i. '. / ' . $cart->session_id. '</td>';
                         echo '<td>' . $user. '</td>';
                         echo '<td>' . date('Y-m-d H:i:s', (int)$cart->session_expiry) . '</td>';
                         echo '<td>' . $cartSubtotal. '</td>';
-                        echo '<td>' . implode(', ', maybe_unserialize($session_data['applied_coupons'])). '</td>';
+                        echo '<td>' . $applied_coupons. '</td>';
                         echo '<td>';
                         if (!empty($cart_products)) {
                             $cart_products = maybe_unserialize($cart_products);
@@ -82,7 +92,8 @@ class WooCommerceCartSessions extends \WPTurbo
                             echo '</ul>';
                         }
                         echo '</td>';
-                    echo '</tr>';
+                        echo '</tr>';
+                    }
                 }
                 echo '</tbody>';
                 echo '</table>';
